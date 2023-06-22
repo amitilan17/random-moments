@@ -30,8 +30,19 @@ class FinishFragment : Fragment() {
 
         val back = view.findViewById<Button>(R.id.back_snooze_button)
         back.setOnClickListener {
-            requireActivity().finish()
+//            requireActivity().finish() todo return if no demo restart button
+            navigateToHomeFragment()
         }
+    }
+
+    private fun navigateToHomeFragment() {
+        val homeFragment = HomeFragment.newInstance(activeDiary = false)
+
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, homeFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     companion object {

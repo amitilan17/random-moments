@@ -35,7 +35,7 @@
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 
-<!--    move to camera dialog-->
+    <!--    move to camera dialog-->
     <string name="move_to_camera_dialog_text">לחיצה על המשך תשמור את הטקסט ותוביל למצלמה, להוספת תמונה מהרגע.</string>
     <string name="move_to_camera_dialog_pos_button">המשך</string>
     <string name="move_to_camera_dialog_neg_button">ערוך</string>
@@ -43,7 +43,12 @@
 
     <!--    writing frag-->
     <string name="continue_button">המשך</string>
+    <string name="character_counter">%1$d/%2$d</string>
 
+    <!--    home frag-->
+    <string name="start_diary">התחל יומן</string>
+    <string name="home_fragment_no_diary">כרגע אין יומן פעיל שצובר רגעים.</string>
+    <string name="home_fragment_no_moment">כרגע אין רגע כתיבה פעיל.\nרגעי הכתיבה יבחרו עבורך רנדומלית,\nותשלח על כך נוטיפיקציה.</string>
 
     <!-- finish frag -->
     <string name="finish_text_1">הרגע תועד</string>
@@ -51,7 +56,8 @@
     <string name="finish_button">יציאה</string>
 
     <string name="error">error!!!!</string>
-    <string name="character_counter">%1$d/%2$d</string>
     <string name="content_description">description</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

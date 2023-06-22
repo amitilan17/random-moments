@@ -94,7 +94,7 @@ class OnboardingActivity : AppCompatActivity() {
         setupPageIndicator()
 
         continueButton.setOnClickListener {
-            showDialog()
+            navigateToMainActivity()
         }
     }
 
@@ -138,20 +138,7 @@ class OnboardingActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog() {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.start_dialog, null)
-        dialogView.findViewById<Button>(R.id.dialog_button).setOnClickListener {
-            navigateToWriteFragment()
-        }
-
-        val builder = AlertDialog.Builder(this, R.style.squareDialog)
-            .setView(dialogView)
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun navigateToWriteFragment() {
+    private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
