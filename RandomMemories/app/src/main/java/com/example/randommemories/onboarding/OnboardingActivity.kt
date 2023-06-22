@@ -215,19 +215,19 @@ class OnboardingActivity : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.M)
         private fun animateText(itemView: View) {
             val text2 = itemView.findViewById<TextView>(R.id.text_2)
-            text2.setTextColor(context.getColor(R.color.dark_gray))
+            text2.setTextColor(context.getColor(R.color.light_gray))
             text2.postDelayed({ text2.setTextColor(context.getColor(R.color.black)) }, 2000)
 
             val text3 = itemView.findViewById<TextView>(R.id.text_3)
-            text3.setTextColor(context.getColor(R.color.dark_gray))
+            text3.setTextColor(context.getColor(R.color.light_gray))
             text3.postDelayed({ text3.setTextColor(context.getColor(R.color.black)) }, 5000)
 
             val text4 = itemView.findViewById<TextView>(R.id.text_4)
-            text4.setTextColor(context.getColor(R.color.dark_gray))
+            text4.setTextColor(context.getColor(R.color.light_gray))
             text4.postDelayed({ text4.setTextColor(context.getColor(R.color.black)) }, 7000)
 
             val text5 = itemView.findViewById<TextView>(R.id.text_5)
-            text5.setTextColor(context.getColor(R.color.dark_gray))
+            text5.setTextColor(context.getColor(R.color.light_gray))
             text5.postDelayed({ text5.setTextColor(context.getColor(R.color.black)) }, 10000)
         }
 

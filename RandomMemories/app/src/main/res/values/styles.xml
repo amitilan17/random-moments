@@ -7,10 +7,16 @@
         <item name="android:letterSpacing">0.04</item>
     </style>
 
-    <style name="onboarding_text">
+    <style name="app_text">
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/narkiss_tam_light</item>
         <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="hint_text">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:fontFamily">@font/narkiss_tam_light</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="onboarding_bullet">

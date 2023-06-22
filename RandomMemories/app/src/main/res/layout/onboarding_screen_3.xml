@@ -29,7 +29,8 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/leaves_first_frame"/>
+        android:src="@drawable/leaves_first_frame"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/title"
@@ -43,7 +44,8 @@
         android:textAlignment="gravity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/video"
-        tools:text="example" />
+        tools:text="example"
+        tools:ignore="RtlHardcoded" />
 
     <ImageView
         android:id="@+id/separator_1"
@@ -53,7 +55,8 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:contentDescription="@string/content_description" />
 
     <ImageView
         android:id="@+id/separator_2"
@@ -63,7 +66,8 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separator_1" />
+        app:layout_constraintTop_toBottomOf="@id/separator_1"
+        android:contentDescription="@string/content_description" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list"
@@ -88,7 +92,7 @@
 
             <TextView
                 android:id="@+id/text_1"
-                style="@style/onboarding_text"
+                style="@style/app_text"
                 android:layout_width="@dimen/onboarding3_text_width"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -119,7 +123,7 @@
 
             <TextView
                 android:id="@+id/text_2"
-                style="@style/onboarding_text"
+                style="@style/app_text"
                 android:layout_width="@dimen/onboarding3_text_width"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -150,7 +154,7 @@
 
             <TextView
                 android:id="@+id/text_3"
-                style="@style/onboarding_text"
+                style="@style/app_text"
                 android:layout_width="@dimen/onboarding3_text_width"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -181,7 +185,7 @@
 
             <TextView
                 android:id="@+id/text_4"
-                style="@style/onboarding_text"
+                style="@style/app_text"
                 android:layout_width="@dimen/onboarding3_text_width"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -212,7 +216,7 @@
 
             <TextView
                 android:id="@+id/text_5"
-                style="@style/onboarding_text"
+                style="@style/app_text"
                 android:layout_width="@dimen/onboarding3_text_width"
                 android:layout_height="wrap_content"
                 android:gravity="right"
@@ -238,7 +242,8 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintBottom_toTopOf="@id/separator_4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/content_description" />
 
     <ImageView
         android:id="@+id/separator_4"
@@ -248,6 +253,7 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/content_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

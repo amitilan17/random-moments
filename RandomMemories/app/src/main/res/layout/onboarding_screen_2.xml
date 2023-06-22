@@ -30,7 +30,8 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/sea_first_frame"/>
+        android:src="@drawable/sea_first_frame"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/title"
@@ -44,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/video"
         tools:text="example"
-        />
+        tools:ignore="RtlHardcoded" />
 
     <ImageView
         android:id="@+id/separator_1"
@@ -54,7 +55,8 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:contentDescription="@string/content_description" />
 
     <ImageView
         android:id="@+id/separator_2"
@@ -64,11 +66,12 @@
         android:src="@drawable/separator_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/separator_1" />
+        app:layout_constraintTop_toBottomOf="@id/separator_1"
+        android:contentDescription="@string/content_description" />
 
     <TextView
         android:id="@+id/text_1"
-        style="@style/onboarding_text"
+        style="@style/app_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/onboarding_padding_horizontal"

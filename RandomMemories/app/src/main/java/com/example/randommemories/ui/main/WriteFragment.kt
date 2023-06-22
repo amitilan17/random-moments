@@ -145,8 +145,7 @@ class WriteFragment : Fragment() {
         val snoozeButton = view?.findViewById<Button>(R.id.snooze_button)
 
         continueButton?.setOnClickListener {
-            userTypedText = editText?.text.toString()
-            takeImage()
+            showMoveToCameraDialog()
         }
 
         snoozeButton?.setOnClickListener {
@@ -241,6 +240,27 @@ class WriteFragment : Fragment() {
         val dialog = builder.create()
 
         dialogView.findViewById<Button>(R.id.back_snooze_button).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun showMoveToCameraDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.move_to_camera_dialog, null)
+        dialogView.findViewById<Button>(R.id.accept_move_to_camera_button).setOnClickListener {
+            userTypedText = editText?.text.toString()
+            takeImage()
+        }
+
+
+        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
+            .setView(dialogView)
+
+        val dialog = builder.create()
+
+        dialogView.findViewById<Button>(R.id.back_move_to_camera_button).setOnClickListener {
             dialog.dismiss()
         }
 

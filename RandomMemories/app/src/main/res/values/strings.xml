@@ -35,6 +35,12 @@
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 
+<!--    move to camera dialog-->
+    <string name="move_to_camera_dialog_text">לחיצה על המשך תשמור את הטקסט ותוביל למצלמה, להוספת תמונה מהרגע.</string>
+    <string name="move_to_camera_dialog_pos_button">המשך</string>
+    <string name="move_to_camera_dialog_neg_button">ערוך</string>
+    <string name="dont_show_again">אל תציג שנית</string>
+
     <!--    writing frag-->
     <string name="continue_button">המשך</string>
 
@@ -46,5 +52,6 @@
 
     <string name="error">error!!!!</string>
     <string name="character_counter">%1$d/%2$d</string>
+    <string name="content_description">description</string>
 
 </resources>

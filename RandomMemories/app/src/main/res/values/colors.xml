@@ -11,6 +11,6 @@
     <color name="light_blue">#C9CCF5</color>
     <color name="light_light_blue">#E5E7FF</color>
     <color name="red">#EC4343</color>
-    <color name="light_gray">#EAEAEA</color>
-    <color name="dark_gray">#ACACAC</color>
+    <color name="light_gray">#ACACAC</color>
+    <color name="dark_gray">#646464</color>
 </resources>
