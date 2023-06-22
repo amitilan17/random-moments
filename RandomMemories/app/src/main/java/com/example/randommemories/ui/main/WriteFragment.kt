@@ -4,13 +4,10 @@ package com.example.randommemories.ui.main
 import TakePictureWithUriReturnContract
 import android.annotation.SuppressLint
 import android.content.ContentResolver
-import android.content.Context
 import android.graphics.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.CancellationSignal
-import android.os.ParcelFileDescriptor
 import android.print.*
 import android.text.Editable
 import android.text.InputFilter
@@ -25,13 +22,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.print.PrintHelper
 import com.chaquo.python.PyException
 import com.chaquo.python.Python
 import com.example.randommemories.*
@@ -195,14 +190,14 @@ class WriteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun onImageTaken(imageUri: Uri) {
-        runPythonManipulation(imageUri.path)
+//        runPythonManipulation(imageUri.path)
         val bitmap = BitmapFactory.decodeStream(
             requireContext().contentResolver.openInputStream(imageUri) // todo take the python output file
         )
 
 //        createCanvasAndSaveToFile(userTypedText, bitmap)
 //        deleteFile(imageUri)
-//        navigateToFinishFragment()
+        navigateToFinishFragment()
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -210,7 +205,7 @@ class WriteFragment : Fragment() {
         try {
             // create full layout
             val font: Typeface? =
-                ResourcesCompat.getFont(requireContext(), R.font.parmigiano_sans_light);
+                ResourcesCompat.getFont(requireContext(), R.font.parmigiano_sans_light)
             val bitmap = vm.createLayout(text, image, font!!)
 
             // Save the bitmap as a JPEG file

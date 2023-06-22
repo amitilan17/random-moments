@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--app-->
+    <dimen name="app_bottom_margin">28dp</dimen>
+    <!--    onboarding-->
     <dimen name="onboarding_padding_horizontal">28dp</dimen>
     <dimen name="onboarding1_padding_vertical">16dp</dimen>
-    <dimen name="write_frag_padding">26dp</dimen>
     <dimen name="onboarding3_text_width">300dp</dimen>
-    <dimen name="dialog_vertical_padding">10dp</dimen>
-    <dimen name="dialog_horizontal_margin">20dp</dimen>
-    <dimen name="bottom_margin">28dp</dimen>
+    <!--    write-->
+    <dimen name="write_frag_padding">26dp</dimen>
+    <!--    dialogs-->
+    <dimen name="dialog_top_padding">24dp</dimen>
+    <dimen name="dialog_bottom_padding">16dp</dimen>
+    <dimen name="dialog_horizontal_margin">28dp</dimen>
+    <dimen name="dialog_vertical_space">10dp</dimen>
+    <dimen name="start_dialog_text_width">280dp</dimen>
+    <dimen name="snooze_dialog_text_width">280dp</dimen>
 </resources>

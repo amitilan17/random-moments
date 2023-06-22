@@ -8,7 +8,7 @@
     <string name="onboarding1_text2">חייו של “האני החווה” מורכבים ממיליוני רגעים שחולפים בזה אחר זה. הוא מכיר רק את הרגע הנוכחי, ההווה הפסיכולוגי, שנמשך כ-3 שניות.</string>
     <string name="onboarding1_text3">״האני הזוכר״ אוסף רגעים לסיפורים ומתייק אותם כזכרונות. סיפורים כאלה הם בדרך כלל בעלי מאפיינים עלילתיים: שינוי, משמעות וסיום.</string>
     <string name="onboarding2_title">לזכור הוויה, ולא רק סיפור</string>
-    <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם נקיים מעלילה?</string>
+    <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\n\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\n\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם נקיים מעלילה?</string>
     <string name="onboarding3_title">איך זה עובד?</string>
     <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע רנדומלי.</string>
     <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה? על מה אני חושבת? מה אני מרגיש?</string>
@@ -31,8 +31,7 @@
     <string name="start_dialog_button">התחל</string>
 
     <!--    snooze dialog-->
-    <string name="snooze_dialog_text">תרצה לדחות את הכתיבה?
-        אם כן, יבחר עבורך רגע רנדומלי אחר במקום הרגע הנוכחי.</string>
+    <string name="snooze_dialog_text">תרצה לדחות את הכתיבה?\nהרגע הנוכחי לא ישמר, ויבחר עבורך רגע רנדומלי אחר במקומו.</string>
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 

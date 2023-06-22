@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/finish_button"
-        android:layout_marginBottom="@dimen/bottom_margin"
+        android:layout_marginBottom="@dimen/app_bottom_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
