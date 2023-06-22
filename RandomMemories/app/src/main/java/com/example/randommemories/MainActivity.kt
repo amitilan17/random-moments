@@ -1,8 +1,12 @@
 package com.example.randommemories
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
+import android.widget.Button
 import androidx.core.view.WindowCompat
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
@@ -27,6 +31,11 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, HomeFragment.newInstance(activeDiary = false))
                 .commitNow()
+        }
+
+        val restartButton = findViewById<Button>(R.id.restart_button)
+        restartButton.setOnClickListener{
+            this.finish()
         }
     }
 }

@@ -36,7 +36,7 @@ class FinishFragment : Fragment() {
     }
 
     private fun navigateToHomeFragment() {
-        val homeFragment = HomeFragment.newInstance(activeDiary = false)
+        val homeFragment = HomeFragment.newInstance(activeDiary = true)
 
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()

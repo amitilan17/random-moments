@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">רגעי חולין</string>
     <string name="logo">רגעי ; חולין</string>
+    <string name="demo_button">RESTART\nDEMO</string>
 
     <!--    onboarding screens-->
     <string name="onboarding1_title">האני החווה מול האני הזוכר</string>

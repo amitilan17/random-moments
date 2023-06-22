@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         }
 
         val video = view.findViewById<VideoView>(R.id.video)
-        video.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.home_screen_3))
+        video.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.home_screen))
         video.start()
         video.setOnCompletionListener {
             video.seekTo(1)
