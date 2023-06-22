@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="onboarding_padding_horizontal">28dp</dimen>
+    <dimen name="onboarding1_padding_vertical">16dp</dimen>
+    <dimen name="write_frag_padding">26dp</dimen>
+    <dimen name="onboarding3_text_width">300dp</dimen>
+    <dimen name="dialog_vertical_padding">10dp</dimen>
+    <dimen name="dialog_horizontal_margin">20dp</dimen>
+    <dimen name="bottom_margin">28dp</dimen>
+</resources>

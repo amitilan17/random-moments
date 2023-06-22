@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:backgroundDimEnabled ="true"
+    android:backgroundDimAmount="0.7"
+    android:paddingTop="16dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/text_1"
+        style="@style/onboarding_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
+        android:paddingBottom="@dimen/dialog_vertical_padding"
+        android:text="@string/dialog_text1"
+        android:textAlignment="gravity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
+    <ImageView
+        android:id="@+id/dot_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dialog_vertical_padding"
+        android:src="@drawable/dot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_1" />
+
+    <TextView
+        android:id="@+id/text_2"
+        style="@style/onboarding_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
+        android:paddingBottom="@dimen/dialog_vertical_padding"
+        android:text="@string/dialog_text2"
+        android:textAlignment="gravity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dot_1" />
+
+    <Button
+        android:id="@+id/dialog_button"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dialog_vertical_padding"
+        android:text="@string/start_dialog_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_2"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

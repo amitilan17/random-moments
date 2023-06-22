@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">רגעי חולין</string>
+    <string name="logo">רגעי ; חולין</string>
+
+    <!--    onboarding screens-->
+    <string name="onboarding1_title">האני החווה מול האני הזוכר</string>
+    <string name="onboarding1_text1">"נפריד בין שני מצבי התודעה שלנו:\nה״אני החווה״ וה״אני הזוכר״."</string>
+    <string name="onboarding1_text2">חייו של “האני החווה” מורכבים ממיליוני רגעים שחולפים בזה אחר זה. הוא מכיר רק את הרגע הנוכחי, ההווה הפסיכולוגי, שנמשך כ-3 שניות.</string>
+    <string name="onboarding1_text3">״האני הזוכר״ אוסף רגעים לסיפורים ומתייק אותם כזכרונות. סיפורים כאלה הם בדרך כלל בעלי מאפיינים עלילתיים: שינוי, משמעות וסיום.</string>
+    <string name="onboarding2_title">לזכור הוויה, ולא רק סיפור</string>
+    <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם נקיים מעלילה?</string>
+    <string name="onboarding3_title">איך זה עובד?</string>
+    <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע רנדומלי.</string>
+    <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה? על מה אני חושבת? מה אני מרגיש?</string>
+    <string name="onboarding3_text3">מצרפים תמונה מהרגע.</string>
+    <string name="onboarding3_text4">ממשיכים לאסוף רגעים במשך זמן רנדומלי שנבחר עבורך, בין 15 ל-30 יום.</string>
+    <string name="onboarding3_text5">מקבלים יומן מודפס במשלוח עד הבית.</string>
+    <string name="onboarding3_button">נתחיל</string>
+    <string name="onboarding_bullet1">א.</string>
+    <string name="onboarding_bullet2">ב.</string>
+    <string name="onboarding_bullet3">ג.</string>
+    <string name="onboarding_bullet4">ד.</string>
+    <string name="onboarding_bullet5">ה.</string>
+
+
+    <!--    start dialog-->
+    <string name="dialog_text">ניקח את הרגע הזה כדוגמה-  חלון הכתיבה הראשון יתחיל ממש עכשיו. 
+שים לב, חלונות הכתיבה הבאים יפתחו בזמנים רנדומליים, ותקבל על כך נוטיפיקציה.</string>
+    <string name="dialog_text1">הרגע הראשון שיתועד יהיה הרגע הנוכחי, בתור דוגמה.</string>
+    <string name="dialog_text2">הרגעים הבאים יוגדרו עבורך באופן רנדומלי, ותשלח לך על כך נוטיפיקציה.</string>
+    <string name="start_dialog_button">התחל</string>
+
+    <!--    snooze dialog-->
+    <string name="snooze_dialog_text">תרצה לדחות את הכתיבה?
+        אם כן, יבחר עבורך רגע רנדומלי אחר במקום הרגע הנוכחי.</string>
+    <string name="snooze_dialog_pos_button">דחה</string>
+    <string name="snooze_dialog_neg_button">חזור</string>
+
+    <!--    writing frag-->
+    <string name="continue_button">המשך</string>
+
+
+    <!-- finish frag -->
+    <string name="finish_text_1">הרגע תועד</string>
+    <string name="finish_text_2">להתראות ברגע הבא</string>
+    <string name="finish_button">יציאה</string>
+
+    <string name="error">error!!!!</string>
+    <string name="character_counter">%1$d/%2$d</string>
+
+</resources>

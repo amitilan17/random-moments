@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="0dp">
+
+    <Space
+        android:id="@+id/onboarding_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="278dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/first_frame"
+        android:layout_width="match_parent"
+        android:layout_height="278dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/leaves_first_frame"/>
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/onboarding_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingHorizontal="@dimen/onboarding_padding_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:textAlignment="gravity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/video"
+        tools:text="example" />
+
+    <ImageView
+        android:id="@+id/separator_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:src="@drawable/separator_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <ImageView
+        android:id="@+id/separator_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:src="@drawable/separator_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator_1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/onboarding_padding_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/separator_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator_2">
+
+        <LinearLayout
+            android:id="@+id/pair1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/onboarding_padding_horizontal"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/onboarding_padding_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/text_1"
+                style="@style/onboarding_text"
+                android:layout_width="@dimen/onboarding3_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                tools:ignore="RtlHardcoded"
+                tools:text="דוגמה ארוכה מאוד מאוד כדי לראות מה קורה כשיורדים שורה" />
+
+            <TextView
+                android:id="@+id/bullet_1"
+                style="@style/onboarding_bullet"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/onboarding_padding_horizontal"
+                android:text="@string/onboarding_bullet1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pair2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/onboarding_padding_horizontal"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/onboarding_padding_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pair1"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/text_2"
+                style="@style/onboarding_text"
+                android:layout_width="@dimen/onboarding3_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                tools:ignore="RtlHardcoded"
+                tools:text="דוגמה" />
+
+            <TextView
+                android:id="@+id/bullet_2"
+                style="@style/onboarding_bullet"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/onboarding_padding_horizontal"
+                android:text="@string/onboarding_bullet2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pair3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/onboarding_padding_horizontal"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/onboarding_padding_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pair2"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/text_3"
+                style="@style/onboarding_text"
+                android:layout_width="@dimen/onboarding3_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                tools:ignore="RtlHardcoded"
+                tools:text="דוגמה" />
+
+            <TextView
+                android:id="@+id/bullet_3"
+                style="@style/onboarding_bullet"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/onboarding_padding_horizontal"
+                android:text="@string/onboarding_bullet3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pair4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/onboarding_padding_horizontal"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/onboarding_padding_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pair3"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/text_4"
+                style="@style/onboarding_text"
+                android:layout_width="@dimen/onboarding3_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                tools:ignore="RtlHardcoded"
+                tools:text="דוגמה" />
+
+            <TextView
+                android:id="@+id/bullet_4"
+                style="@style/onboarding_bullet"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/onboarding_padding_horizontal"
+                android:text="@string/onboarding_bullet4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pair5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/onboarding_padding_horizontal"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/onboarding_padding_horizontal"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pair4"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/text_5"
+                style="@style/onboarding_text"
+                android:layout_width="@dimen/onboarding3_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAlignment="gravity"
+                tools:ignore="RtlHardcoded"
+                tools:text="דוגמה" />
+
+            <TextView
+                android:id="@+id/bullet_5"
+                style="@style/onboarding_bullet"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/onboarding_padding_horizontal"
+                android:text="@string/onboarding_bullet5" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/separator_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:src="@drawable/separator_shape"
+        app:layout_constraintBottom_toTopOf="@id/separator_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/separator_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:src="@drawable/separator_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
