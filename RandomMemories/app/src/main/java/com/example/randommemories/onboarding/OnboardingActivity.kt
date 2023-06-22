@@ -1,6 +1,5 @@
 package com.example.randommemories.onboarding
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
@@ -15,7 +14,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +28,6 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private var activeVideo: VideoView? = null
     private var activeImage: ImageView? = null
-    private var activeText: TextView? = null
     private lateinit var pageIndicatorLayout: LinearLayout
     private lateinit var continueButton: Button
 
@@ -203,7 +200,7 @@ class OnboardingActivity : AppCompatActivity() {
 
 
             if (holder.adapterPosition == 0) {
-                animateText(holder.itemView)
+//                animateText(holder.itemView)
             }
 
         }
