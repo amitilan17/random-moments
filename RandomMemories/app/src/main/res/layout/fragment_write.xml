@@ -21,15 +21,6 @@
             android:paddingTop="38dp"
             android:paddingBottom="@dimen/app_bottom_margin">
 
-            <Button
-                android:id="@+id/print_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="print"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <com.example.randommemories.ui.main.LinedEditText
                 android:id="@+id/edit_text"
                 style="@style/NoBottomLineTextViewStyle"

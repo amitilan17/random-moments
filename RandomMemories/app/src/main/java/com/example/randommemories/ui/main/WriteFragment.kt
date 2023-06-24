@@ -32,11 +32,12 @@ import com.chaquo.python.Python
 import com.example.randommemories.*
 import com.example.randommemories.databinding.FragmentWriteBinding
 import com.example.randommemories.helpers.LocaleHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
 import java.util.*
+import java.io.File
 
 
 class WriteFragment : Fragment() {
@@ -84,37 +85,6 @@ class WriteFragment : Fragment() {
         LocaleHelper.onCreate(requireContext(), "he")
     }
 
-    private fun doPhotoPrint() {
-//        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.leaves_first_frame)
-//        PrinterHelper.printBitmap(requireContext(), bitmap, "jobName");
-
-
-        // this implementation works but opens the activity
-//        activity?.also { context ->
-//            PrintHelper(context).apply {
-//                scaleMode = PrintHelper.SCALE_MODE_FIT
-//            }.also { printHelper ->
-//                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.leaves_first_frame)
-//                printHelper.printBitmap("droids.jpg - test print", bitmap)
-//            }
-//        }
-
-//        val printManager = context?.getSystemService(Context.PRINT_SERVICE) as PrintManager
-//        val jobName = "${getString(R.string.app_name)} Document"
-//
-//        printManager.print(
-//            jobName,
-//            PrintDocumentAdapter(),
-//            PrintAttributes.Builder()
-//                .setMediaSize(PrintAttributes.MediaSize.ISO_A4.asLandscape())
-//                .setColorMode(PrintAttributes.COLOR_MODE_MONOCHROME)
-//                .setResolution(PrintAttributes.Resolution("best", "best", 300, 300))
-//                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
-//                .build()
-//        )
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -151,11 +121,6 @@ class WriteFragment : Fragment() {
         snoozeButton?.setOnClickListener {
             showSnoozeDialog()
         }
-
-        val printButton = view?.findViewById<Button>(R.id.print_button)
-        printButton?.setOnClickListener {
-            doPhotoPrint()
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -163,12 +128,6 @@ class WriteFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             getTmpFileUri().let { uri -> takeImageResult.launch(uri) }
         }
-    }
-
-
-    private fun runPythonManipulation(imageUri: String?) { // todo handle nullable
-        module.callAttr("manipulate_image", imageUri)
-            ?.toJava(ByteArray::class.java)
     }
 
 
@@ -189,31 +148,51 @@ class WriteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun onImageTaken(imageUri: Uri) {
-//        runPythonManipulation(imageUri.path)
-        val bitmap = BitmapFactory.decodeStream(
-            requireContext().contentResolver.openInputStream(imageUri) // todo take the python output file
-        )
-
-//        createCanvasAndSaveToFile(userTypedText, bitmap)
 //        deleteFile(imageUri)
         navigateToFinishFragment()
+        sendToPrintServer(imageUri.getFile())
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun createCanvasAndSaveToFile(text: String?, image: Bitmap) {
-        try {
-            // create full layout
-            val font: Typeface? =
-                ResourcesCompat.getFont(requireContext(), R.font.parmigiano_sans_light)
-            val bitmap = vm.createLayout(text, image, font!!)
+    private fun Uri.getFile(): File? {
+        val inputStream = requireContext().contentResolver.openInputStream(this)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        val file = this.lastPathSegment?.let { File(requireContext().cacheDir, it) }
+        val outStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+        outStream.flush()
+        outStream.close()
+        return file
+    }
 
-            // Save the bitmap as a JPEG file
-            val outputFile = File(requireActivity().filesDir, "layout.jpg")
-            val outputStream = FileOutputStream(outputFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            outputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
+    private fun sendToPrintServer(image: File?) {
+        if (image == null) {
+            return
+        }
+        val client = OkHttpClient()
+
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("text", userTypedText ?: "")
+            .addFormDataPart(
+                "image", "image.jpg",
+                RequestBody.create("image/png".toMediaTypeOrNull(), image)
+            )
+            .build()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = withContext(Dispatchers.IO) {
+                async {
+                    val request = Request.Builder()
+                        .url("http://10.0.0.2:8000/data")
+                        .post(requestBody)
+                        .build()
+
+                    val response = client.newCall(request).execute()
+                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                    response.body?.string()
+                }
+            }
+            println(result.await())
         }
     }
 
@@ -257,7 +236,8 @@ class WriteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun showMoveToCameraDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.move_to_camera_dialog, null)
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.move_to_camera_dialog, null)
         val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
             .setView(dialogView)
 
@@ -279,40 +259,6 @@ class WriteFragment : Fragment() {
     private fun deleteFiles(uri: Uri) {
         val contentResolver: ContentResolver = requireActivity().contentResolver
         contentResolver.delete(uri, null, null)
-    }
-
-    // old- todo delete when sure that no coroutine needed and we can use runPythonManipulation2
-    private fun runPythonManipulationOld(image: Bitmap) {
-        runBlocking {
-            launch(Dispatchers.IO) {
-                try {
-                    val imageBytearray = encodeBitmapToByteArray(image)
-
-                    val bytes = module.callAttr("manipulate_image", imageBytearray)
-                        .toJava(ByteArray::class.java)
-                    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
-
-                    val outputFile = File(requireActivity().filesDir, "output01.jpg")
-                    val outputStream = FileOutputStream(outputFile)
-                    bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                    outputStream.close()
-                } catch (e: PyException) {
-                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    private fun encodeBitmapToByteArray(bitmap: Bitmap): ByteArray {
-        // Create an output stream for the compressed bitmap data
-        val outputStream = ByteArrayOutputStream()
-
-        // Compress the bitmap into the output stream as a JPEG with 100% quality
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-
-        // Convert the output stream to a byte array and return
-        return outputStream.toByteArray()
     }
 
     companion object {
