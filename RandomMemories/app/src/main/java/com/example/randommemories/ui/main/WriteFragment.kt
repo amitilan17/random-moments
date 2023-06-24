@@ -4,6 +4,7 @@ package com.example.randommemories.ui.main
 import TakePictureWithUriReturnContract
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.Context
 import android.graphics.*
 import android.net.Uri
 import android.os.Build
@@ -16,18 +17,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.chaquo.python.PyException
 import com.chaquo.python.Python
 import com.example.randommemories.*
 import com.example.randommemories.databinding.FragmentWriteBinding
@@ -37,7 +37,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
 import java.util.*
-import java.io.File
+import kotlin.properties.Delegates
 
 
 class WriteFragment : Fragment() {
@@ -74,15 +74,37 @@ class WriteFragment : Fragment() {
 
     private lateinit var binding: FragmentWriteBinding
     private val vm: WriteViewModel by viewModels()
-
+    private var logoTopPaddingOnActivity by Delegates.notNull<Int>()
+    private var restartTopPaddingOnActivity by Delegates.notNull<Int>()
+    private var restartLeftPaddingOnActivity by Delegates.notNull<Int>()
 
     // todo move
     private val py = Python.getInstance()
     private val module = py.getModule("manipulate_image")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+
         LocaleHelper.onCreate(requireContext(), "he")
+
+        logoTopPaddingOnActivity = requireActivity().findViewById<TextView>(R.id.logo).paddingTop
+        restartTopPaddingOnActivity =
+            requireActivity().findViewById<View>(R.id.restart_button).paddingTop
+        restartLeftPaddingOnActivity =
+            requireActivity().findViewById<View>(R.id.restart_button).paddingLeft
+        println(requireActivity().findViewById<View>(R.id.restart_button).paddingLeft)
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
+        requireActivity().findViewById<TextView>(R.id.logo).setPadding(0, 8, 0, 0)
+        requireActivity().findViewById<View>(R.id.restart_button).setPadding(40, -150, 0, 0)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
+        requireActivity().findViewById<TextView>(R.id.logo)
+            .setPadding(0, logoTopPaddingOnActivity, 0, 0)
+        requireActivity().findViewById<View>(R.id.restart_button)
+            .setPadding(restartLeftPaddingOnActivity, restartTopPaddingOnActivity, 0, 0)
     }
 
     override fun onCreateView(
@@ -110,15 +132,20 @@ class WriteFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("QueryPermissionsNeeded")
     private fun setupViews() {
-        val editText = view?.findViewById<EditText>(R.id.edit_text)
         val continueButton = view?.findViewById<Button>(R.id.continue_button)
         val snoozeButton = view?.findViewById<Button>(R.id.snooze_button)
 
         continueButton?.setOnClickListener {
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
             showMoveToCameraDialog()
         }
 
         snoozeButton?.setOnClickListener {
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
             showSnoozeDialog()
         }
     }

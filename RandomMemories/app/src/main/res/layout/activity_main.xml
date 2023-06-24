@@ -7,9 +7,11 @@
     tools:context=".MainActivity">
 
     <FrameLayout
+        android:id="@+id/restart_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        android:layout_marginTop="-13dp"
         android:elevation="8dp">
         <Button
             android:id="@+id/restart_button"
@@ -19,11 +21,13 @@
             android:drawableTint="@color/dark_gray"
             android:textAlignment="center"
             android:drawableBottom="@drawable/restart_button"
-            android:paddingTop="18dp"
+            android:paddingTop="31dp"
+            android:paddingLeft="28dp"
             />
     </FrameLayout>
 
     <TextView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"

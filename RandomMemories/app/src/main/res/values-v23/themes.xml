@@ -10,16 +10,17 @@
         <item name="colorSecondary">@color/red</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
+
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/bg</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
 
-        <item name="android:navigationBarColor">
-            @android:color/transparent
-        </item>
     </style>
 
 </resources>

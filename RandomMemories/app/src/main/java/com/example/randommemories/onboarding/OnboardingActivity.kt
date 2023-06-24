@@ -10,9 +10,9 @@ import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -72,6 +72,7 @@ class OnboardingActivity : AppCompatActivity() {
         supportActionBar?.hide()
         actionBar?.hide()
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         LocaleHelper.onCreate(this, "he")
         setContentView(R.layout.activity_onboarding)
