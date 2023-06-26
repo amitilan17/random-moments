@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         val restartButton = findViewById<Button>(R.id.restart_button)
         restartButton.setOnClickListener {
+            restartButton.background.clearColorFilter()
             this.finish()
         }
     }

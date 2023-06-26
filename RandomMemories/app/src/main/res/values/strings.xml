@@ -9,7 +9,7 @@
     <string name="onboarding1_text2">חייו של “האני החווה” מורכבים ממיליוני רגעים שחולפים בזה אחר זה. הוא מכיר רק את הרגע הנוכחי, ההווה הפסיכולוגי, שנמשך כ-3 שניות.</string>
     <string name="onboarding1_text3">״האני הזוכר״ אוסף רגעים לסיפורים ומתייק אותם כזכרונות. סיפורים כאלה הם בדרך כלל בעלי מאפיינים עלילתיים: שינוי, משמעות וסיום.</string>
     <string name="onboarding2_title">לזכור הוויה, ולא רק סיפור</string>
-    <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\n\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\n\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם נקיים מעלילה?</string>
+    <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\n\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\n\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם בדיוק כפי שהם?</string>
     <string name="onboarding3_title">איך זה עובד?</string>
     <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע רנדומלי.</string>
     <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה? על מה אני חושבת? מה אני מרגיש?</string>
@@ -53,7 +53,7 @@
 
     <!-- finish frag -->
     <string name="finish_text_1">הרגע תועד</string>
-    <string name="finish_text_2">להתראות ברגע הבא</string>
+    <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
     <string name="finish_button">יציאה</string>
 
     <string name="error">error!!!!</string>

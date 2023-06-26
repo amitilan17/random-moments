@@ -87,15 +87,15 @@ class WriteFragment : Fragment() {
 
         LocaleHelper.onCreate(requireContext(), "he")
 
-        logoTopPaddingOnActivity = requireActivity().findViewById<TextView>(R.id.logo).paddingTop
-        restartTopPaddingOnActivity =
-            requireActivity().findViewById<View>(R.id.restart_button).paddingTop
-        restartLeftPaddingOnActivity =
-            requireActivity().findViewById<View>(R.id.restart_button).paddingLeft
-        println(requireActivity().findViewById<View>(R.id.restart_button).paddingLeft)
+
+        val logo = requireActivity().findViewById<TextView>(R.id.logo)
+        val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
+        logoTopPaddingOnActivity = logo.paddingTop
+        restartTopPaddingOnActivity = restartButton.paddingTop
+        restartLeftPaddingOnActivity = restartButton.paddingLeft
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-        requireActivity().findViewById<TextView>(R.id.logo).setPadding(0, 8, 0, 0)
-        requireActivity().findViewById<View>(R.id.restart_button).setPadding(40, -150, 0, 0)
+        logo.setPadding(0, 8, 0, 0)
+        restartButton.setPadding(40, -150, 0, 0)
     }
 
     override fun onStop() {
@@ -250,7 +250,7 @@ class WriteFragment : Fragment() {
             .setView(dialogView)
 
         val dialog = builder.create()
-        dialogView.findViewById<Button>(R.id.back_snooze_button).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {

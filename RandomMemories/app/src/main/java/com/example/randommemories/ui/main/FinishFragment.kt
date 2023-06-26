@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
+import androidx.activity.addCallback
 import com.example.randommemories.R
 
 
@@ -27,8 +27,9 @@ class FinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
 
-        val back = view.findViewById<Button>(R.id.back_snooze_button)
+        val back = view.findViewById<Button>(R.id.exit_button)
         back.setOnClickListener {
 //            requireActivity().finish() todo return if no demo restart button
             navigateToHomeFragment()

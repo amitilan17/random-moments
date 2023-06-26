@@ -52,6 +52,7 @@
             android:id="@+id/finish_text_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:text="@string/finish_text_2"
             style="@style/app_text"
             android:layout_marginTop="10dp"
@@ -61,7 +62,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/back_snooze_button"
+        android:id="@+id/exit_button"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
