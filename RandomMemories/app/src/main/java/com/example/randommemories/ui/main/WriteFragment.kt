@@ -87,6 +87,7 @@ class WriteFragment : Fragment() {
 
         LocaleHelper.onCreate(requireContext(), "he")
 
+        activity?.findViewById<Button>(R.id.menu)?.visibility= View.INVISIBLE
 
         val logo = requireActivity().findViewById<TextView>(R.id.logo)
         val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
@@ -94,8 +95,8 @@ class WriteFragment : Fragment() {
         restartTopPaddingOnActivity = restartButton.paddingTop
         restartLeftPaddingOnActivity = restartButton.paddingLeft
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-        logo.setPadding(0, 8, 0, 0)
-        restartButton.setPadding(40, -150, 0, 0)
+        logo.setPadding(0, 24, 0, 0)
+        restartButton.setPadding(40, -14, 0, 0)
     }
 
     override fun onStop() {

@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:paddingTop="52dp"
+            android:paddingTop="58dp"
             android:text="@string/logo"
             android:elevation="4dp"
             style="@style/logo"/>

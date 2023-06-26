@@ -17,7 +17,7 @@ class LinedEditText(context: Context, attrs: AttributeSet?) : androidx.appcompat
     // we need this constructor for LayoutInflater
     init {
         mPaint.style = Paint.Style.FILL_AND_STROKE
-        mPaint.color = context.getColor(R.color.light_blue)
+        mPaint.color = context.getColor(R.color.light_blue_darker)
         mPaint.strokeWidth = 3f
         mPaint.pathEffect = DashPathEffect(floatArrayOf(3f, 15f), 0f) // Set dash pattern
     }
