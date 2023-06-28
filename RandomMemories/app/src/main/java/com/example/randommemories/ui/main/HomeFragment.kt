@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
                 background.clearColorFilter()
             }
         menuButton?.setOnClickListener {
-            navigateToMenuFragment()
+            openMenuFragment()
         }
 
         val startButton = view.findViewById<Button>(R.id.start_button)
@@ -157,6 +157,15 @@ class HomeFragment : Fragment() {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, menuFragment)
         transaction.addToBackStack("home")
+        transaction.commit()
+    }
+
+    fun openMenuFragment() {
+        val menuFragment = MenuFragment()
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.add(R.id.fragmentContainer, menuFragment)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 

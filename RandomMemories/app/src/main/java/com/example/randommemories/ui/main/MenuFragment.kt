@@ -27,7 +27,7 @@ class MenuFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            closeFragment()
+            removeFragment()
         }
 
         val menuContentLayout = view.findViewById<LinearLayout>(R.id.menu_content_layout)
@@ -49,7 +49,7 @@ class MenuFragment : Fragment() {
             AccelerateDecelerateInterpolator() // Set an interpolator for smoother animation
         menuBackgroundLayout.startAnimation(fadeAnimation)
         menuBackgroundLayout.setOnClickListener {
-            closeFragment()
+            removeFragment()
         }
     }
 
@@ -68,5 +68,12 @@ class MenuFragment : Fragment() {
     private fun closeFragment() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack("home", POP_BACK_STACK_INCLUSIVE)
+    }
+
+    private fun removeFragment() {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 }

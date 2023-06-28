@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--     Background fragment- home -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/home_placeholder"
-        android:name="com.example.randommemories.ui.main.HomeFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <!-- Menu fragment -->
     <RelativeLayout
         android:id="@+id/menuFragment"
