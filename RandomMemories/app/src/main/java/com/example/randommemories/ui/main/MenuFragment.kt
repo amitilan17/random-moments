@@ -70,10 +70,76 @@ class MenuFragment : Fragment() {
         fragmentManager.popBackStack("home", POP_BACK_STACK_INCLUSIVE)
     }
 
+    // works without fade
+//    private fun removeFragment() {
+//        val thisFrag = this
+//
+//        val menuContentLayout = activity?.findViewById<LinearLayout>(R.id.menu_content_layout)
+//
+//        val slideOutAnimation = TranslateAnimation(
+//            Animation.RELATIVE_TO_PARENT, 0.0f,
+//            Animation.RELATIVE_TO_PARENT, 1.0f,
+//            Animation.RELATIVE_TO_PARENT, 0.0f,
+//            Animation.RELATIVE_TO_PARENT, 0.0f
+//        )
+//        slideOutAnimation.duration = 100
+//        slideOutAnimation.interpolator = DecelerateInterpolator()
+//        menuContentLayout?.startAnimation(slideOutAnimation)
+//
+//        slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+//            override fun onAnimationStart(animation: Animation?) {}
+//
+//            override fun onAnimationEnd(animation: Animation?) {
+//                val fragmentManager = requireActivity().supportFragmentManager
+//                fragmentManager.beginTransaction()
+//                    .remove(thisFrag)
+//                    .commit()
+//            }
+//
+//            override fun onAnimationRepeat(animation: Animation?) {}
+//        })
+//    }
+
     private fun removeFragment() {
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction()
-            .remove(this)
-            .commit()
+        val thisFrag = this
+
+        val menuContentLayout = activity?.findViewById<LinearLayout>(R.id.menu_content_layout)
+        val menuDimmedBackground = activity?.findViewById<LinearLayout>(R.id.menu_dimmed_background)
+
+        val slideOutAnimation = TranslateAnimation(
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 1.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f,
+            Animation.RELATIVE_TO_PARENT, 0.0f
+        )
+        slideOutAnimation.duration = 100
+        slideOutAnimation.interpolator = DecelerateInterpolator()
+        slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                menuContentLayout?.visibility = View.GONE
+
+                val fadeOutAnimation = AlphaAnimation(0.7f, 0.0f)
+                fadeOutAnimation.duration = 100
+                fadeOutAnimation.interpolator = AccelerateInterpolator()
+                fadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) {}
+
+                    override fun onAnimationEnd(animation: Animation?) {
+                        val fragmentManager = requireActivity().supportFragmentManager
+                        fragmentManager.beginTransaction()
+                            .remove(thisFrag)
+                            .commit()
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation?) {}
+                })
+                menuDimmedBackground?.startAnimation(fadeOutAnimation)
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+        menuContentLayout?.startAnimation(slideOutAnimation)
     }
 }
