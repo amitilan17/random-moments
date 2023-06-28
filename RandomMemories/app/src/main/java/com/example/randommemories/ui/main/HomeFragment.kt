@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
     private var activeDiary: Boolean? = null
     private var playbackPosition = 0
     private var isVideoPlaying = false
+    private var menuButton: Button? = null
+    private var logo: TextView? = null
     private lateinit var video: VideoView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class HomeFragment : Fragment() {
             activeDiary = it.getBoolean(ARG_IS_ACTIVE_DIARY)
         }
     }
+
     override fun onPause() {
         super.onPause()
         pauseVideoPlayback()
@@ -56,6 +59,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
+
+        logo = activity?.findViewById<TextView>(R.id.logo)?.apply { visibility = View.VISIBLE }
+        menuButton =
+            activity?.findViewById<Button>(R.id.menu_button)?.apply {
+                visibility = View.VISIBLE
+                background.clearColorFilter()
+            }
+        menuButton?.setOnClickListener {
+            navigateToMenuFragment()
+        }
 
         val startButton = view.findViewById<Button>(R.id.start_button)
         startButton.setOnClickListener {
@@ -134,6 +147,16 @@ class HomeFragment : Fragment() {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, writeFragment)
         transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun navigateToMenuFragment() {
+        val menuFragment = MenuFragment()
+
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, menuFragment)
+        transaction.addToBackStack("home")
         transaction.commit()
     }
 

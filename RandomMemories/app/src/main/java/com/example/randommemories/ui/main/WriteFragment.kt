@@ -87,7 +87,7 @@ class WriteFragment : Fragment() {
 
         LocaleHelper.onCreate(requireContext(), "he")
 
-        activity?.findViewById<Button>(R.id.menu)?.visibility= View.INVISIBLE
+        activity?.findViewById<Button>(R.id.menu_button)?.visibility= View.INVISIBLE
 
         val logo = requireActivity().findViewById<TextView>(R.id.logo)
         val restartButton = requireActivity().findViewById<View>(R.id.restart_button)

@@ -20,11 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableBottom="@drawable/restart_button"
+            android:drawableBottom="@drawable/ic_restart_demo"
             android:drawableTint="@color/dark_gray"
             android:paddingLeft="28dp"
-            android:paddingTop="39dp"
-            android:textAlignment="center" />
+            android:paddingTop="39dp"/>
     </FrameLayout>
 
     <TextView
@@ -37,13 +36,22 @@
         android:text="@string/logo"
         android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/menu"
-        style="@style/Button"
+    <FrameLayout
+        android:id="@+id/menu_button_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginTop="48dp"
-        android:drawableLeft="@drawable/ic_menu"
-        android:elevation="20dp"/>
+        android:layout_marginTop="-13dp"
+        android:elevation="8dp">
+
+        <Button
+            android:id="@+id/menu_button"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="29dp"
+            android:paddingRight="24dp"
+            android:drawableBottom="@drawable/ic_menu" />
+    </FrameLayout>
 </FrameLayout>

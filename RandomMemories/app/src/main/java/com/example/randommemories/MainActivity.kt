@@ -50,5 +50,11 @@ class MainActivity : AppCompatActivity() {
             restartButton.background.clearColorFilter()
             this.finish()
         }
+
+        val menuButton = findViewById<Button>(R.id.menu_button)
+        menuButton.setOnClickListener {
+            menuButton.background.clearColorFilter()
+            this.finish()
+        }
     }
 }

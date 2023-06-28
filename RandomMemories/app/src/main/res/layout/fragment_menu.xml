@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragmentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--     Background fragment- home -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/home_placeholder"
+        android:name="com.example.randommemories.ui.main.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Menu fragment -->
+    <RelativeLayout
+        android:id="@+id/menuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menuFragment_inner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black_50"
+            android:orientation="horizontal">
+
+            <!-- Menu background -->
+            <LinearLayout
+                android:id="@+id/menu_dimmed_background"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <!-- Menu content -->
+            <LinearLayout
+                android:id="@+id/menu_content_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toRightOf="@id/menu_dimmed_background"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <Button
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableBottom="@drawable/ic_x"
+                    style="@style/Button"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="20dp"
+                    android:paddingRight="24dp"
+                    android:layout_gravity="right"/>
+
+                <!-- Bottom Bar -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/contentTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Content" />
+
+                    <EditText
+                        android:id="@+id/contentEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <Button
+                        android:id="@+id/exitButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="Exit" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</FrameLayout>
