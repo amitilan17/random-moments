@@ -150,17 +150,7 @@ class HomeFragment : Fragment() {
         transaction.commit()
     }
 
-    private fun navigateToMenuFragment() {
-        val menuFragment = MenuFragment()
-
-        val fragmentManager = requireActivity().supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, menuFragment)
-        transaction.addToBackStack("home")
-        transaction.commit()
-    }
-
-    fun openMenuFragment() {
+    private fun openMenuFragment() {
         val menuFragment = MenuFragment()
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()

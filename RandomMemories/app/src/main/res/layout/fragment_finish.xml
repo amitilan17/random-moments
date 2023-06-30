@@ -62,13 +62,19 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/exit_button"
+        android:id="@+id/reject_snooze_button"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/finish_button"
-        android:layout_marginBottom="@dimen/app_bottom_margin"
+        android:layout_marginBottom="44dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/space"
         app:layout_constraintEnd_toEndOf="parent"/>
+    <Space
+    android:id="@+id/space"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_bottom_margin"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

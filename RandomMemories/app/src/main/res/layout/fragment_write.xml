@@ -1,9 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <data>
+
+        <variable
+            name="currentText"
+            type="String" />
 
         <variable
             name="vm"
@@ -31,7 +34,7 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="top"
                 android:inputType="textMultiLine|textNoSuggestions|textVisiblePassword"
-                android:text="@{vm.currentText}"
+                android:text="@{currentText}"
                 app:layout_constraintBottom_toTopOf="@id/buttonsBar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,11 +49,11 @@
                 <TextView
                     android:id="@+id/char_counter"
                     style="@style/word_counter"
-                    android:gravity="right"
-                    android:textAlignment="gravity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:paddingRight="4dp"
+                    android:textAlignment="gravity"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -87,11 +90,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <Space
                 android:id="@+id/space"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_bottom_margin"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

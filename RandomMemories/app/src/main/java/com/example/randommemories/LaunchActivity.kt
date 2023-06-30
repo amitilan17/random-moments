@@ -9,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.core.os.HandlerCompat.postDelayed
 import androidx.core.view.WindowCompat
 import com.example.randommemories.onboarding.OnboardingActivity
 
@@ -32,6 +31,6 @@ class LaunchActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, OnboardingActivity::class.java)
-            startActivity(intent)}, 2000)
+            startActivity(intent)}, 1700)
     }
 }

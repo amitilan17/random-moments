@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -17,6 +18,9 @@ import com.example.randommemories.ui.main.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
+    var genderFemale = true
+    private val sharedViewModel: SharedViewModel by viewModels()
+
     @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {

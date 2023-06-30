@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.chaquo.python.Python
@@ -78,10 +79,12 @@ class WriteFragment : Fragment() {
     private var logoTopPaddingOnActivity by Delegates.notNull<Int>()
     private var restartTopPaddingOnActivity by Delegates.notNull<Int>()
     private var restartLeftPaddingOnActivity by Delegates.notNull<Int>()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
 
     // todo move
-    private val py = Python.getInstance()
-    private val module = py.getModule("manipulate_image")
+//    private val py = Python.getInstance()
+//    private val module = py.getModule("manipulate_image")
 
     override fun onResume() {
         super.onResume()
@@ -116,6 +119,13 @@ class WriteFragment : Fragment() {
         binding = FragmentWriteBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.vm = vm
+
+        val isGenderFemale = sharedViewModel.genderIsFemale
+        binding.currentText = if (isGenderFemale) {
+            vm.randomStringsFemale.random()
+        } else {
+            vm.randomStringsMale.random()
+        }
 
         editText = binding.root.findViewById(R.id.edit_text)
         counterTextView = binding.root.findViewById(R.id.char_counter)
@@ -197,7 +207,11 @@ class WriteFragment : Fragment() {
         if (image == null) {
             return
         }
-        var client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build()
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -212,12 +226,6 @@ class WriteFragment : Fragment() {
             val result = withContext(Dispatchers.IO) {
                 async {
                     try {
-                        client = OkHttpClient.Builder()
-                            .connectTimeout(30, TimeUnit.SECONDS)
-                            .writeTimeout(60, TimeUnit.SECONDS)
-                            .readTimeout(60, TimeUnit.SECONDS)
-                            .build()
-
                         val request = Request.Builder()
                             .url("http://10.0.0.2:8000/data")
 //                        .url("http://192.168.231.180:8000/data")
@@ -263,7 +271,7 @@ class WriteFragment : Fragment() {
             .setView(dialogView)
 
         val dialog = builder.create()
-        dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.reject_snooze_button).setOnClickListener {
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {

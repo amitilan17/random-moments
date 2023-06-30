@@ -62,6 +62,10 @@
     <!--    menu frag-->
     <string name="logout">התנתק</string>
     <string name="address">עמית אילן\nישעיהו 15 דירה 14\nתל אביב</string>
+    <string name="title1">פרטי משלוח</string>
+    <string name="title2">לשון פניה</string>
+    <string name="male">גבר</string>
+    <string name="female">אישה</string>
 
 
     <string name="error">error!!!!</string>

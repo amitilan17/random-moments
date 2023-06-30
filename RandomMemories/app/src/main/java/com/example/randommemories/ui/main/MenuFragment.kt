@@ -7,18 +7,17 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
+import androidx.fragment.app.activityViewModels
+import com.example.randommemories.MainActivity
 import com.example.randommemories.R
+import com.example.randommemories.SharedViewModel
 import com.example.randommemories.helpers.OnSwipeTouchListener
-import kotlin.system.exitProcess
 
 class MenuFragment : Fragment() {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,15 +57,13 @@ class MenuFragment : Fragment() {
             Animation.RELATIVE_TO_PARENT, 0.0f
         )
         slideInAnimation.duration = 400
-        slideInAnimation.interpolator = AccelerateDecelerateInterpolator()
         slideInAnimation.interpolator = DecelerateInterpolator()
         menuContentLayout.startAnimation(slideInAnimation)
 
         val menuBackgroundLayout = view.findViewById<LinearLayout>(R.id.menu_dimmed_background)
         val fadeAnimation = AlphaAnimation(0.0f, 1.0f)
         fadeAnimation.duration = 100 // Set the duration in milliseconds
-        fadeAnimation.interpolator =
-            AccelerateDecelerateInterpolator() // Set an interpolator for smoother animation
+        fadeAnimation.interpolator = AccelerateDecelerateInterpolator()
         menuBackgroundLayout.startAnimation(fadeAnimation)
         menuBackgroundLayout.setOnTouchListener(
             OnSwipeTouchListener(
@@ -74,6 +71,36 @@ class MenuFragment : Fragment() {
                 onSwipeRight = { removeFragment() },
                 onSimpleTouch = { removeFragment() })
         )
+
+
+        val checkboxFemale = view.findViewById<CheckBox>(R.id.checkboxFemale)
+        val checkboxMale = view.findViewById<CheckBox>(R.id.checkboxMale)
+        checkboxFemale.isChecked = (activity as MainActivity).genderFemale
+        checkboxMale.isChecked = !(activity as MainActivity).genderFemale
+
+        checkboxFemale.setOnClickListener {
+            if (checkboxMale.isChecked){
+                checkboxFemale.isChecked = true
+                checkboxMale.isChecked = false
+                sharedViewModel.genderIsFemale = true
+            }
+            else { // must be that checkboxFemale is selected, override uncheck with ignore
+                checkboxFemale.isChecked = true
+                return@setOnClickListener
+            }
+        }
+
+        checkboxMale.setOnClickListener {
+            if (checkboxFemale.isChecked){
+                checkboxMale.isChecked = true
+                checkboxFemale.isChecked = false
+                sharedViewModel.genderIsFemale= false
+            }
+            else { // must be that checkboxMale is selected, override uncheck with ignore
+                checkboxMale.isChecked = true
+                return@setOnClickListener
+            }
+        }
 
 
         val editButton = view.findViewById<Button>(R.id.edit_button)
@@ -129,7 +156,7 @@ class MenuFragment : Fragment() {
             .setView(dialogView)
 
         val dialog = builder.create()
-        dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.reject_snooze_button).setOnClickListener {
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {

@@ -9,22 +9,29 @@ import android.text.TextPaint
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 
-class WriteViewModel : ViewModel() {
-    private val randomStrings = arrayOf(
+class WriteViewModel() : ViewModel() {
+    val randomStringsFemale = arrayOf(
         "עכשיו אני מרגישה",
         "מה שאני רואה מולי עכשיו זה",
         "עכשיו אני חושבת על",
         "מה שמעסיק אותי כרגע זה",
         "אני נמצאת ב"
     )
+    val randomStringsMale = arrayOf(
+        "עכשיו אני מרגיש",
+        "מה שאני רואה מולי עכשיו זה",
+        "עכשיו אני חושב על",
+        "מה שמעסיק אותי כרגע זה",
+        "אני נמצא ב"
+    )
 
     var userTypedText: String? = null
 
-    val randomString: String
-        get() = randomStrings.random()
+//    private val randomString: String
+//        get() = randomStrings.random()
 
-    val currentText: String
-        get() = userTypedText ?: randomString
+//    val currentText: String
+//        get() = userTypedText ?: randomString
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun createLayout(text: String?, manipulatedImage: Bitmap, font: Typeface): Bitmap {

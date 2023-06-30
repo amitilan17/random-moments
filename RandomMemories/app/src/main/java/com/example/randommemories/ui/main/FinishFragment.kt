@@ -29,7 +29,7 @@ class FinishFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
 
-        val back = view.findViewById<Button>(R.id.exit_button)
+        val back = view.findViewById<Button>(R.id.reject_snooze_button)
         back.setOnClickListener {
 //            requireActivity().finish() todo return if no demo restart button
             navigateToHomeFragment()
