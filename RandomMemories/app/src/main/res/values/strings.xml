@@ -25,14 +25,12 @@
 
 
     <!--    start dialog-->
-    <string name="dialog_text">ניקח את הרגע הזה כדוגמה-  חלון הכתיבה הראשון יתחיל ממש עכשיו. 
-שים לב, חלונות הכתיבה הבאים יפתחו בזמנים רנדומליים, ותקבל על כך נוטיפיקציה.</string>
     <string name="dialog_text1">הרגע הראשון שיתועד יהיה הרגע הנוכחי, בתור דוגמה.</string>
     <string name="dialog_text2">הרגעים הבאים יוגדרו עבורך באופן רנדומלי, ותשלח לך על כך נוטיפיקציה.</string>
     <string name="start_dialog_button">התחל</string>
 
     <!--    snooze dialog-->
-    <string name="snooze_dialog_text">תרצה לדחות את הכתיבה?\nהרגע הנוכחי לא ישמר, ויבחר עבורך רגע רנדומלי אחר במקומו.</string>
+    <string name="snooze_dialog_text">האם לדחות את הכתיבה?\nהרגע הנוכחי לא ישמר, ויבחר עבורך רגע רנדומלי אחר במקומו.</string>
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 
@@ -41,6 +39,11 @@
     <string name="move_to_camera_dialog_pos_button">המשך</string>
     <string name="move_to_camera_dialog_neg_button">ערוך</string>
     <string name="dont_show_again">אל תציג שנית</string>
+
+    <!--    logout dialog-->
+    <string name="logout_dialog_text">האם ברצונך להפסיק את כתיבת היומן?\nהרגעים שאספת עד כה ישלחו לכתובת שהוזנה.</string>
+    <string name="logout_dialog_pos_button">התנתק</string>
+    <string name="logout_dialog_neg_button">חזור</string>
 
     <!--    writing frag-->
     <string name="continue_button">המשך</string>
@@ -55,6 +58,11 @@
     <string name="finish_text_1">הרגע תועד</string>
     <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
     <string name="finish_button">יציאה</string>
+
+    <!--    menu frag-->
+    <string name="logout">התנתק</string>
+    <string name="address">עמית אילן\nישעיהו 15 דירה 14\nתל אביב</string>
+
 
     <string name="error">error!!!!</string>
     <string name="content_description">description</string>

@@ -211,7 +211,7 @@ class WriteFragment : Fragment() {
             val result = withContext(Dispatchers.IO) {
                 async {
                     val request = Request.Builder()
-                        .url("http://10.0.0.2:8000/data")
+                        .url("http://192.168.231.180:8000/data")
                         .post(requestBody)
                         .build()
 

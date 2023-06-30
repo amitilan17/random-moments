@@ -1,25 +1,41 @@
 package com.example.randommemories.ui.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.example.randommemories.R
+import com.example.randommemories.helpers.OnSwipeTouchListener
+import kotlin.system.exitProcess
 
 class MenuFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_menu, container, false)
+
+        rootView.setOnTouchListener(
+            OnSwipeTouchListener(
+                requireContext(),
+                onSwipeRight = { removeFragment() })
+        )
+
+        return rootView
     }
 
-    @SuppressLint("CutPasteId")
+    @SuppressLint("CutPasteId", "ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.findViewById<TextView>(R.id.logo)?.visibility = View.GONE
@@ -28,6 +44,10 @@ class MenuFragment : Fragment() {
 
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
             removeFragment()
+        }
+
+        view.findViewById<Button>(R.id.logout_button).setOnClickListener{
+            showLogoutDialog()
         }
 
         val menuContentLayout = view.findViewById<LinearLayout>(R.id.menu_content_layout)
@@ -48,9 +68,47 @@ class MenuFragment : Fragment() {
         fadeAnimation.interpolator =
             AccelerateDecelerateInterpolator() // Set an interpolator for smoother animation
         menuBackgroundLayout.startAnimation(fadeAnimation)
-        menuBackgroundLayout.setOnClickListener {
-            removeFragment()
+        menuBackgroundLayout.setOnTouchListener(
+            OnSwipeTouchListener(
+                requireContext(),
+                onSwipeRight = { removeFragment() },
+                onSimpleTouch = { removeFragment() })
+        )
+
+
+        val editButton = view.findViewById<Button>(R.id.edit_button)
+        val contentTextView = view.findViewById<TextView>(R.id.contentTextView)
+        val contentEditText = view.findViewById<EditText>(R.id.contentEditText)
+
+        // Set initial text for both TextView and EditText
+        val initialText = requireContext().getString(R.string.address)
+        contentTextView.text = initialText
+        contentEditText.setText(initialText)
+
+        editButton.setOnClickListener {
+            val isEditing = contentEditText.visibility == View.VISIBLE
+
+            if (isEditing) {
+                // Switch from edit mode to view mode
+                contentTextView.text = contentEditText.text.toString()
+                contentEditText.visibility = View.INVISIBLE
+                contentTextView.visibility = View.VISIBLE
+                editButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_edit, 0)
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(contentEditText.windowToken, 0)
+            } else {
+                // Switch from view mode to edit mode
+                contentEditText.setText(contentTextView.text.toString())
+                contentEditText.visibility = View.VISIBLE
+                contentTextView.visibility = View.INVISIBLE
+                editButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_checkcircle, 0)
+                contentEditText.requestFocus()
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(contentEditText, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
+
+
     }
 
     override fun onResume() {
@@ -63,6 +121,34 @@ class MenuFragment : Fragment() {
         super.onPause()
         activity?.findViewById<TextView>(R.id.logo)?.visibility = View.VISIBLE
         activity?.findViewById<Button>(R.id.menu_button)?.visibility = View.VISIBLE
+    }
+
+    private fun showLogoutDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.logout_dialog, null)
+        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
+            .setView(dialogView)
+
+        val dialog = builder.create()
+        dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {
+            dialog.dismiss()
+            navigateToHomeFragment()
+        }
+
+        dialog.show()
+    }
+
+
+    private fun navigateToHomeFragment() {
+        val homeFragment = HomeFragment.newInstance(false)
+
+        val fragmentManager = requireActivity().supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, homeFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun closeFragment() {

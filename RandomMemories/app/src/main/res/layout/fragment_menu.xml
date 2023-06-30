@@ -39,49 +39,83 @@
 
                 <Button
                     android:id="@+id/backButton"
+                    style="@style/Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableBottom="@drawable/ic_x"
-                    style="@style/Button"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="16dp"
                     android:background="@android:color/transparent"
-                    android:layout_marginTop="20dp"
-                    android:paddingRight="24dp"
-                    android:layout_gravity="right"/>
+                    android:drawableBottom="@drawable/ic_x"
+                    android:paddingRight="24dp" />
 
-                <!-- Bottom Bar -->
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="top|right"
+                    android:textAlignment="gravity"
+                    android:layout_marginRight="34dp"
+                    style="@style/app_text_Large"
+                    android:paddingTop="34dp"
+                    android:paddingBottom="10dp"
+                    android:text="פרטי משלוח"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/contentTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Content" />
+                        android:gravity="right"
+                        android:textAlignment="gravity"
+                        android:layout_marginRight="34dp"
+                        style="@style/app_text_Medium"
+                        android:text="@string/address"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:paddingBottom="10dp"/>
 
-                    <EditText
+                    <com.example.randommemories.ui.main.LinedEditText
                         android:id="@+id/contentEditText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
-                        android:visibility="gone" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
+                        android:visibility="invisible"
+                        android:inputType="textMultiLine|textNoSuggestions|textVisiblePassword"
+                        app:layout_constraintTop_toTopOf="@id/contentTextView"
+                        app:layout_constraintRight_toRightOf="parent"
+                        style="@style/NoBottomLineTextViewStyle"
+                        android:layout_marginRight="34dp"
+                        android:paddingBottom="10dp"/>
 
                     <Button
-                        android:id="@+id/exitButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="Exit" />
+                        android:id="@+id/edit_button"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        style="@style/ButtonNoPadding"
+                        android:drawableBottom="@drawable/ic_edit"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="2dp"
+                        app:layout_constraintTop_toBottomOf="@id/contentEditText"
+                        app:layout_constraintRight_toRightOf="parent"/>
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/logout_button"
+                    style="@style/Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_logout"
+                    android:layout_gravity="right"
+                    android:text="@string/logout"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="@dimen/app_bottom_margin"
+                    android:layout_marginRight="34dp"/>
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
