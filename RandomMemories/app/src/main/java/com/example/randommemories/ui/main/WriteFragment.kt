@@ -37,6 +37,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
 
 
@@ -87,7 +88,7 @@ class WriteFragment : Fragment() {
 
         LocaleHelper.onCreate(requireContext(), "he")
 
-        activity?.findViewById<Button>(R.id.menu_button)?.visibility= View.INVISIBLE
+        activity?.findViewById<Button>(R.id.menu_button)?.visibility = View.INVISIBLE
 
         val logo = requireActivity().findViewById<TextView>(R.id.logo)
         val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
@@ -196,7 +197,7 @@ class WriteFragment : Fragment() {
         if (image == null) {
             return
         }
-        val client = OkHttpClient()
+        var client = OkHttpClient()
 
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -210,14 +211,25 @@ class WriteFragment : Fragment() {
         CoroutineScope(Dispatchers.Main).launch {
             val result = withContext(Dispatchers.IO) {
                 async {
-                    val request = Request.Builder()
-                        .url("http://192.168.231.180:8000/data")
-                        .post(requestBody)
-                        .build()
+                    try {
+                        client = OkHttpClient.Builder()
+                            .connectTimeout(30, TimeUnit.SECONDS)
+                            .writeTimeout(60, TimeUnit.SECONDS)
+                            .readTimeout(60, TimeUnit.SECONDS)
+                            .build()
 
-                    val response = client.newCall(request).execute()
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                    response.body?.string()
+                        val request = Request.Builder()
+                            .url("http://10.0.0.2:8000/data")
+//                        .url("http://192.168.231.180:8000/data")
+                            .post(requestBody)
+                            .build()
+
+                        val response = client.newCall(request).execute()
+                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                        response.body?.string()
+                    } catch (e: java.lang.Exception) {
+                        println("print server error: $e")
+                    }
                 }
             }
             println(result.await())

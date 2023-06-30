@@ -1,6 +1,7 @@
 package com.example.randommemories
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -48,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         val restartButton = findViewById<Button>(R.id.restart_button)
         restartButton.setOnClickListener {
             restartButton.background.clearColorFilter()
-            this.finish()
+            val intent = Intent(this, LaunchActivity::class.java)
+            startActivity(intent)
         }
 
         val menuButton = findViewById<Button>(R.id.menu_button)
