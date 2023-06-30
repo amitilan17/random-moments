@@ -29,7 +29,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.chaquo.python.Python
 import com.example.randommemories.*
 import com.example.randommemories.databinding.FragmentWriteBinding
 import com.example.randommemories.helpers.LocaleHelper
@@ -189,7 +188,7 @@ class WriteFragment : Fragment() {
     private fun onImageTaken(imageUri: Uri) {
 //        deleteFile(imageUri)
         navigateToFinishFragment()
-        sendToPrintServer(imageUri.getFile())
+        sendToPrintServer(imageUri)
     }
 
     private fun Uri.getFile(): File? {
@@ -203,10 +202,8 @@ class WriteFragment : Fragment() {
         return file
     }
 
-    private fun sendToPrintServer(image: File?) {
-        if (image == null) {
-            return
-        }
+    private fun sendToPrintServer(imageUri: Uri) {
+        val image = imageUri.getFile() ?: return
         val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
@@ -238,6 +235,7 @@ class WriteFragment : Fragment() {
                     } catch (e: java.lang.Exception) {
                         println("print server error: $e")
                     }
+                    deleteFiles(imageUri)
                 }
             }
             println(result.await())
