@@ -44,7 +44,7 @@
             android:paddingBottom="@dimen/dialog_vertical_space"
             android:text="@string/snooze_dialog_pos_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -54,8 +54,8 @@
             android:paddingHorizontal="40dp"
             android:src="@drawable/dot"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/reject_snooze_button"
-            app:layout_constraintStart_toEndOf="@id/accept_snooze_button"
+            app:layout_constraintEnd_toStartOf="@id/accept_snooze_button"
+            app:layout_constraintStart_toEndOf="@id/reject_snooze_button"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/content_description" />
 
@@ -67,7 +67,7 @@
             android:paddingBottom="@dimen/dialog_vertical_space"
             android:text="@string/snooze_dialog_neg_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
