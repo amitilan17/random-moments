@@ -17,14 +17,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Space
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
-import androidx.core.view.WindowCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -92,25 +95,36 @@ class WriteFragment : Fragment() {
 
         activity?.findViewById<Button>(R.id.menu_button)?.visibility = View.INVISIBLE
 
-        val logo = requireActivity().findViewById<TextView>(R.id.logo)
-        val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
-        logoTopPaddingOnActivity = logo.paddingTop
-        restartTopPaddingOnActivity = restartButton.paddingTop
-        restartLeftPaddingOnActivity = restartButton.paddingLeft
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-        logo.setPadding(0, 24, 0, 0)
-        restartButton.setPadding(40, -14, 0, 0)
     }
 
-    override fun onStop() {
-        super.onStop()
-        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
-        requireActivity().findViewById<TextView>(R.id.logo)
-            .setPadding(0, logoTopPaddingOnActivity, 0, 0)
-        requireActivity().findViewById<View>(R.id.restart_button)
-            .setPadding(restartLeftPaddingOnActivity, restartTopPaddingOnActivity, 0, 0)
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        val logo = requireActivity().findViewById<TextView>(R.id.logo)
+//        val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
+//        logoTopPaddingOnActivity = logo.paddingTop
+//        restartTopPaddingOnActivity = restartButton.paddingTop
+//        restartLeftPaddingOnActivity = restartButton.paddingLeft
+//        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
+//
+//        editText?.requestFocus()
+//        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+//        logo.setPadding(0, 24, 0, 0)
+//        restartButton.setPadding(40, -14, 0, 0)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
+//        requireActivity().findViewById<TextView>(R.id.logo)
+//            .setPadding(0, logoTopPaddingOnActivity, 0, 0)
+//        requireActivity().findViewById<View>(R.id.restart_button)
+//            .setPadding(restartLeftPaddingOnActivity, restartTopPaddingOnActivity, 0, 0)
+//    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -131,7 +145,24 @@ class WriteFragment : Fragment() {
         editText?.addTextChangedListener(textWatcher)
         editText?.filters = arrayOf<InputFilter>(LengthFilter(MAX_CHARACTERS))
 
+        binding.root.setOnApplyWindowInsetsListener { _, _ ->
+            applyKeyboardInsets(binding.root)
+        }
+
         return binding.root
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun applyKeyboardInsets(root: View): WindowInsets {
+
+        val insets = root.rootWindowInsets.getInsets(WindowInsets.Type.ime())
+        root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            updateMargins(insets.left, insets.top, insets.right, insets.bottom)
+        }
+        return WindowInsets.Builder()
+            .setInsets(WindowInsets.Type.ime(), insets)
+            .build()
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -293,9 +324,9 @@ class WriteFragment : Fragment() {
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.accept_move_to_camera_button).setOnClickListener {
+            dialog.dismiss()
             userTypedText = editText?.text.toString()
             takeImage()
-            dialog.dismiss()
         }
 
         dialog.show()
