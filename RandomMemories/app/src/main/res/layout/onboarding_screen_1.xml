@@ -44,6 +44,7 @@
         android:textAlignment="gravity"
         android:paddingHorizontal="@dimen/onboarding_padding_horizontal"
         android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/video"
         tools:text="example"

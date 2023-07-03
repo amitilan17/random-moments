@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import androidx.activity.viewModels
@@ -19,7 +20,6 @@ import com.example.randommemories.ui.main.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     var genderFemale = true
-    private val sharedViewModel: SharedViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ResourceAsColor")
@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         actionBar?.hide()
+
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

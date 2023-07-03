@@ -73,6 +73,7 @@ class OnboardingActivity : AppCompatActivity() {
         actionBar?.hide()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
 
         LocaleHelper.onCreate(this, "he")
         setContentView(R.layout.activity_onboarding)

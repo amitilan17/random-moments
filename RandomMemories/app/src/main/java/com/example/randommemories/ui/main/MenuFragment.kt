@@ -225,34 +225,35 @@ class MenuFragment : Fragment() {
             Animation.RELATIVE_TO_PARENT, 0.0f,
             Animation.RELATIVE_TO_PARENT, 0.0f
         )
-        slideOutAnimation.duration = 100
-        slideOutAnimation.interpolator = DecelerateInterpolator()
+        slideOutAnimation.duration = 200
+        slideOutAnimation.interpolator = AccelerateInterpolator()
         slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}
 
             override fun onAnimationEnd(animation: Animation?) {
                 menuContentLayout?.visibility = View.GONE
-
-                val fadeOutAnimation = AlphaAnimation(0.7f, 0.0f)
-                fadeOutAnimation.duration = 100
-                fadeOutAnimation.interpolator = AccelerateInterpolator()
-                fadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(animation: Animation?) {}
-
-                    override fun onAnimationEnd(animation: Animation?) {
-                        val fragmentManager = requireActivity().supportFragmentManager
-                        fragmentManager.beginTransaction()
-                            .remove(thisFrag)
-                            .commit()
-                    }
-
-                    override fun onAnimationRepeat(animation: Animation?) {}
-                })
-                menuDimmedBackground?.startAnimation(fadeOutAnimation)
             }
 
             override fun onAnimationRepeat(animation: Animation?) {}
         })
         menuContentLayout?.startAnimation(slideOutAnimation)
+
+        val fadeOutAnimation = AlphaAnimation(1.0f, 0.0f)
+        fadeOutAnimation.duration = 200
+        fadeOutAnimation.interpolator = AccelerateInterpolator()
+        fadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+
+            override fun onAnimationEnd(animation: Animation?) {
+                val fragmentManager = requireActivity().supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .remove(thisFrag)
+                    .commit()
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+        menuDimmedBackground?.startAnimation(fadeOutAnimation)
     }
+
 }
