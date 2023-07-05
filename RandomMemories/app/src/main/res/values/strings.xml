@@ -11,10 +11,10 @@
     <string name="onboarding2_title">לזכור הוויה, ולא רק סיפור</string>
     <string name="onboarding2_text">מי אנחנו ברגעים הסתמיים שבין רגעי השיא?\n\nמה בכל זאת קורה לנו בהם, שהרי הם רוב חיינו?\n\nמה נוכל ללמוד על עצמנו אם נתבונן ברגעים האלה, אם נתעד אותם בדיוק כפי שהם?</string>
     <string name="onboarding3_title">איך זה עובד?</string>
-    <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע רנדומלי.</string>
-    <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה? על מה אני חושבת? מה אני מרגיש?</string>
+    <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע אקראי.</string>
+    <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה?\nעל מה אני חושבת? מה אני מרגיש?</string>
     <string name="onboarding3_text3">מצרפים תמונה מהרגע.</string>
-    <string name="onboarding3_text4">ממשיכים לאסוף רגעים במשך זמן רנדומלי שנבחר עבורך, בין 15 ל-30 יום.</string>
+    <string name="onboarding3_text4">ממשיכים לאסוף רגעים במשך זמן אקראי שנבחר עבורך, בין 15 ל-30 יום.</string>
     <string name="onboarding3_text5">מקבלים יומן מודפס במשלוח עד הבית.</string>
     <string name="onboarding3_button">נתחיל</string>
     <string name="onboarding_bullet1">א.</string>
@@ -26,11 +26,11 @@
 
     <!--    start dialog-->
     <string name="dialog_text1">הרגע הראשון שיתועד יהיה הרגע הנוכחי, בתור דוגמה.</string>
-    <string name="dialog_text2">הרגעים הבאים יוגדרו עבורך באופן רנדומלי, ותשלח לך על כך נוטיפיקציה.</string>
+    <string name="dialog_text2">הרגעים הבאים יוגדרו עבורך באופן אקראי, ותשלח לך על כך נוטיפיקציה.</string>
     <string name="start_dialog_button">התחל</string>
 
     <!--    snooze dialog-->
-    <string name="snooze_dialog_text">האם לדחות את הכתיבה?\nהרגע הנוכחי לא ישמר, ויבחר עבורך רגע רנדומלי אחר במקומו.</string>
+    <string name="snooze_dialog_text">האם לדחות את הכתיבה?\nהרגע הנוכחי לא ישמר, ויבחר עבורך רגע אקראי אחר במקומו.</string>
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 
@@ -52,7 +52,7 @@
     <!--    home frag-->
     <string name="start_diary">התחל יומן</string>
     <string name="home_fragment_no_diary">כרגע אין יומן פעיל שצובר רגעים.</string>
-    <string name="home_fragment_no_moment">כרגע אין רגע כתיבה פעיל.\nרגעי הכתיבה יבחרו עבורך רנדומלית,\nותשלח על כך נוטיפיקציה.</string>
+    <string name="home_fragment_no_moment">כרגע אין רגע כתיבה פעיל.\nרגעי הכתיבה יבחרו עבורך אקראית,\nותשלח על כך נוטיפיקציה.</string>
 
     <!-- finish frag -->
     <string name="finish_text_1">הרגע תועד</string>

@@ -2,15 +2,13 @@ package com.example.randommemories.onboarding
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -66,14 +64,41 @@ class OnboardingActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onResume() {
         super.onResume()
+//
+//        supportActionBar?.hide()
+//        actionBar?.hide()
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+//        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+
 
         supportActionBar?.hide()
         actionBar?.hide()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+        window.isStatusBarContrastEnforced = false
+        window.isNavigationBarContrastEnforced = false
+
+
+//        supportActionBar?.hide()
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            window.setDecorFitsSystemWindows(false)
+//            window.insetsController?.let { controller ->
+//                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+//                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+//            }
+//        }
 
         LocaleHelper.onCreate(this, "he")
         setContentView(R.layout.activity_onboarding)
@@ -174,7 +199,7 @@ class OnboardingActivity : AppCompatActivity() {
             val video = (activity.activeVideo as VideoView)
             video.start()
             video.setOnCompletionListener {
-                video.seekTo(1)
+                video.seekTo(0)
                 video.start()
             }
             video.setOnPreparedListener { mp ->
@@ -289,7 +314,7 @@ class OnboardingActivity : AppCompatActivity() {
                 video.start()
 
                 video.setOnCompletionListener {
-                    video.seekTo(1)
+                    video.seekTo(0)
                     video.start()
                 }
                 video.setOnPreparedListener { mp ->
