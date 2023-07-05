@@ -59,7 +59,7 @@
 
 
     <style name="ButtonStart">
-        <item name="android:background"> @drawable/bottom_line_bg</item>
+        <item name="android:background">@drawable/bg_bottom_line</item>
         <item name="backgroundTint">@color/red</item>
         <item name="android:textColor">@color/red</item>
         <item name="android:stateListAnimator">@null</item>

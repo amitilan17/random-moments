@@ -137,7 +137,7 @@ class OnboardingActivity : AppCompatActivity() {
         // HEBREW - Iterate in reverse order
         for (i in onboardingItems.indices.reversed()) {
             dots[i] = ImageView(this)
-            dots[i]?.setImageResource(R.drawable.unselected2)
+            dots[i]?.setImageResource(R.drawable.onboarding_indicator_unselected)
             pageIndicatorLayout.addView(dots[i], layoutParams)
         }
 
@@ -148,8 +148,8 @@ class OnboardingActivity : AppCompatActivity() {
         for (i in 0 until pageIndicatorLayout.childCount) {
             val dot = pageIndicatorLayout.getChildAt(i) as ImageView
             dot.setImageResource(
-                if (i == currentPosition) R.drawable.selected
-                else R.drawable.unselected2
+                if (i == currentPosition) R.drawable.onboarding_indicator_selected
+                else R.drawable.onboarding_indicator_unselected
             )
         }
     }

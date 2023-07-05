@@ -31,7 +31,7 @@
                 android:id="@+id/menu_content_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/menu_background"
+                android:background="@drawable/bg_menu"
                 android:elevation="8dp"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toRightOf="@id/menu_dimmed_background"

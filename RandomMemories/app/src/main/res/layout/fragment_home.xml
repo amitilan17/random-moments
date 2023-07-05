@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/content_description"
         android:scaleType="fitXY"
-        android:src="@drawable/home_screen_first_frame" />
+        android:src="@drawable/first_frame_home_screen" />
 
 
 
