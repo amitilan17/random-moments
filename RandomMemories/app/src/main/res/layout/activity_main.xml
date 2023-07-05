@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginTop="-13dp"
         android:elevation="8dp">
 
         <Button
@@ -20,10 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableBottom="@drawable/ic_restart_demo"
+            android:drawableTop="@drawable/ic_restart_demo"
+            android:layout_marginTop="58dp"
             android:drawableTint="@color/dark_gray"
-            android:paddingLeft="28dp"
-            android:paddingTop="39dp"/>
+            android:paddingLeft="24dp"/>
     </FrameLayout>
 
     <TextView
@@ -41,17 +40,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginTop="-13dp"
         android:elevation="8dp">
 
         <Button
             android:id="@+id/menu_button"
-            style="@style/Button"
+            style="@style/ButtonNoPadding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:layout_marginTop="29dp"
             android:paddingRight="24dp"
-            android:drawableBottom="@drawable/ic_menu" />
+            android:layout_marginTop="58dp"
+            android:drawableTop="@drawable/ic_menu" />
     </FrameLayout>
 </FrameLayout>
