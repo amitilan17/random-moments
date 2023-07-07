@@ -41,7 +41,7 @@
     <string name="dont_show_again">אל תציג שנית</string>
 
     <!--    logout dialog-->
-    <string name="logout_dialog_text">האם ברצונך להפסיק את כתיבת היומן?\nהרגעים שאספת עד כה ישלחו לכתובת שהוזנה.</string>
+    <string name="logout_dialog_text">האם ברצונך להפסיק את כתיבת היומן?\nהרגעים שאספת עד כה ישלחו לכתובת שהזנת בהגדרות.</string>
     <string name="logout_dialog_pos_button">התנתק</string>
     <string name="logout_dialog_neg_button">חזור</string>
 
