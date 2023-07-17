@@ -14,7 +14,7 @@
     <string name="onboarding3_text1">מקבלים נוטיפיקציה ברגע אקראי.</string>
     <string name="onboarding3_text2">כותבים את ההווה: מה אני רואה?\nעל מה אני חושבת? מה אני מרגיש?</string>
     <string name="onboarding3_text3">מצרפים תמונה מהרגע.</string>
-    <string name="onboarding3_text4">ממשיכים לאסוף רגעים במשך זמן אקראי שנבחר עבורך, בין 15 ל-30 יום.</string>
+    <string name="onboarding3_text4">ממשיכים לאסוף רגעים במשך זמן אקראי\nשנבחר עבורך, בין 15 ל-30 יום.</string>
     <string name="onboarding3_text5">מקבלים יומן מודפס במשלוח עד הבית.</string>
     <string name="onboarding3_button">נתחיל</string>
     <string name="onboarding_bullet1">א.</string>
@@ -55,7 +55,7 @@
     <string name="home_fragment_no_moment">כרגע אין רגע כתיבה פעיל.\nרגעי הכתיבה יבחרו עבורך אקראית,\nותשלח על כך נוטיפיקציה.</string>
 
     <!-- finish frag -->
-    <string name="finish_text_1">הרגע תועד</string>
+    <string name="finish_text_1">הרגע שלך נשמר</string>
     <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
     <string name="finish_button">יציאה</string>
 

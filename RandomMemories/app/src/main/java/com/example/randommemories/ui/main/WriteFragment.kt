@@ -21,7 +21,6 @@ import android.view.WindowInsets
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Space
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -41,7 +40,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 
 class WriteFragment : Fragment() {
@@ -78,9 +76,6 @@ class WriteFragment : Fragment() {
 
     private lateinit var binding: FragmentWriteBinding
     private val vm: WriteViewModel by viewModels()
-    private var logoTopPaddingOnActivity by Delegates.notNull<Int>()
-    private var restartTopPaddingOnActivity by Delegates.notNull<Int>()
-    private var restartLeftPaddingOnActivity by Delegates.notNull<Int>()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
@@ -255,8 +250,8 @@ class WriteFragment : Fragment() {
                 async {
                     try {
                         val request = Request.Builder()
-                            .url("http://10.0.0.2:8000/data")
-//                        .url("http://192.168.231.180:8000/data")
+//                            .url("http://10.0.0.2:8000/data")
+                        .url("http://192.168.231.180:8000/data")
                             .post(requestBody)
                             .build()
 
