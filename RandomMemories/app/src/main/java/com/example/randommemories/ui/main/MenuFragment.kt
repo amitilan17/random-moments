@@ -156,10 +156,10 @@ class MenuFragment : Fragment() {
             .setView(dialogView)
 
         val dialog = builder.create()
-        dialogView.findViewById<Button>(R.id.reject_snooze_button).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.reject_logout_button).setOnClickListener {
             dialog.dismiss()
         }
-        dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.accept_logout_button).setOnClickListener {
             dialog.dismiss()
             navigateToHomeFragment()
         }

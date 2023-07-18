@@ -62,7 +62,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/reject_snooze_button"
+        android:id="@+id/finish_exit_button"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

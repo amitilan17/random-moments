@@ -19,30 +19,45 @@
         android:layout_marginHorizontal="@dimen/dialog_horizontal_margin"
         android:gravity="center"
         android:paddingBottom="@dimen/dialog_vertical_space"
-        android:text="@string/logout_dialog_text"
+        android:text="@string/send_to_email_dialog_text"
         android:textAlignment="gravity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded" />
 
+    <EditText
+        android:id="@+id/email_editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_hint"
+        style="@style/app_text_Medium"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="10dp"
+        android:backgroundTint="@color/red"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/text"
+        app:layout_constraintStart_toStartOf="@id/buttonsBar"
+        app:layout_constraintEnd_toEndOf="@id/buttonsBar"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonsBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text">
+        app:layout_constraintTop_toBottomOf="@id/email_editText">
 
         <Button
-            android:id="@+id/accept_logout_button"
+            android:id="@+id/send_button"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dialog_vertical_space"
-            android:text="@string/logout_dialog_pos_button"
+            android:text="@string/send_to_email_dialog_pos_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,18 +69,18 @@
             android:paddingHorizontal="40dp"
             android:src="@drawable/dot"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/accept_logout_button"
-            app:layout_constraintStart_toEndOf="@id/reject_logout_button"
+            app:layout_constraintEnd_toStartOf="@id/send_button"
+            app:layout_constraintStart_toEndOf="@id/exit_button"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/content_description" />
 
         <Button
-            android:id="@+id/reject_logout_button"
+            android:id="@+id/exit_button"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dialog_vertical_space"
-            android:text="@string/logout_dialog_neg_button"
+            android:text="@string/send_to_email_dialog_neg_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -34,6 +34,12 @@
     <string name="snooze_dialog_pos_button">דחה</string>
     <string name="snooze_dialog_neg_button">חזור</string>
 
+    <!--    send to email dialog-->
+    <string name="send_to_email_dialog_text">הרגע שתיעדת ישלח בזמן אקראי בעתיד הקרוב לכתובת המייל:</string>
+    <string name="send_to_email_dialog_pos_button">שליחה</string>
+    <string name="send_to_email_dialog_neg_button">יציאה</string>
+
+
     <!--    move to camera dialog-->
     <string name="move_to_camera_dialog_text">לחיצה על המשך תשמור את הטקסט ותוביל למצלמה, להוספת תמונה מהרגע.</string>
     <string name="move_to_camera_dialog_pos_button">המשך</string>
@@ -57,7 +63,7 @@
     <!-- finish frag -->
     <string name="finish_text_1">הרגע שלך נשמר</string>
     <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
-    <string name="finish_button">יציאה</string>
+    <string name="finish_button">סיום</string>
 
     <!--    menu frag-->
     <string name="logout">התנתק</string>
@@ -72,5 +78,6 @@
     <string name="content_description">description</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_hint">כתובת מייל</string>
 
 </resources>

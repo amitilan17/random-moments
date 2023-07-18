@@ -214,7 +214,7 @@ class WriteFragment : Fragment() {
     private fun onImageTaken(imageUri: Uri) {
 //        deleteFile(imageUri)
         navigateToFinishFragment()
-        sendToPrintServer(imageUri)
+//        sendToPrintServer(imageUri)
     }
 
     private fun Uri.getFile(): File? {
@@ -251,7 +251,7 @@ class WriteFragment : Fragment() {
                     try {
                         val request = Request.Builder()
 //                            .url("http://10.0.0.2:8000/data")
-                        .url("http://192.168.231.180:8000/data")
+                            .url("http://192.168.231.180:8000/data")
                             .post(requestBody)
                             .build()
 
@@ -327,7 +327,6 @@ class WriteFragment : Fragment() {
         dialog.show()
     }
 
-    // TODO delete all pythons temp files
     private fun deleteFiles(uri: Uri) {
         val contentResolver: ContentResolver = requireActivity().contentResolver
         contentResolver.delete(uri, null, null)
