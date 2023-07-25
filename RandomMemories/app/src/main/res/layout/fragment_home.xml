@@ -43,7 +43,7 @@
             style="@style/app_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="74dp"
             android:text="@string/home_fragment_no_diary"
             android:textAlignment="center"
             android:textColor="@color/dark_gray" />

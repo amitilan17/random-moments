@@ -1,9 +1,13 @@
 package com.example.randommemories.ui.main
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +16,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.example.randommemories.R
+import kotlinx.coroutines.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -20,7 +35,7 @@ import com.example.randommemories.R
  * Use the [FinishFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FinishFragment : Fragment() {
+class FinishFragment(private val userText: String?, private val userImageUri: Uri) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,16 +72,77 @@ class FinishFragment : Fragment() {
         }
         dialogView.findViewById<Button>(R.id.send_button).setOnClickListener {
             if (validateEmail(emailEditText.text)){
-                // todo send to email server
+                sendToEmailServer(emailEditText.text.toString())
                 navigateToHomeFragment() // todo switch with dismiss for smoother animation?
                 dialog.dismiss()
             }
         }
-
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
 
     }
 
+
+    private fun sendToEmailServer(email: String) {
+        val image = userImageUri.getFile() ?: return
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build()
+
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("text", userText ?: "")
+            .addFormDataPart(
+                "image", "image.jpg",
+                RequestBody.create("image/png".toMediaTypeOrNull(), image)
+            )
+            .addFormDataPart("email", email)
+            .build()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = withContext(Dispatchers.IO) {
+                async {
+                    try {
+                        val request = Request.Builder()
+//                            .url("http://10.0.0.2:8000/data")
+                            .url("http://192.168.231.180:8000/data")
+                            .post(requestBody)
+                            .build()
+
+                        val response = client.newCall(request).execute()
+                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                        response.body?.string()
+                    } catch (e: Exception) {
+                        println("email server error: $e")
+                    }
+                    deleteFiles(userImageUri)
+                }
+            }
+            println(result.await())
+        }
+    }
+
+    private fun Uri.getFile(): File? {
+        val inputStream = requireContext().contentResolver.openInputStream(this)
+        val bitmap = BitmapFactory.decodeStream(inputStream)
+        val file = this.lastPathSegment?.let { File(requireContext().cacheDir, it) }
+        val outStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
+        outStream.flush()
+        outStream.close()
+        return file
+    }
+
+
+    private fun deleteFiles(uri: Uri) {
+        val contentResolver: ContentResolver = requireActivity().contentResolver
+        contentResolver.delete(uri, null, null)
+    }
+
+
+    @SuppressLint("ResourceAsColor")
     private fun validateEmail(text1: Editable): Boolean {
         return if (text1.isEmpty()) {
             Toast.makeText(requireActivity(), INVALID_EMAIL_TOAST, Toast.LENGTH_LONG).show()
@@ -76,7 +152,8 @@ class FinishFragment : Fragment() {
                 Toast.makeText(requireActivity(), VALID_EMAIL_TOAST, Toast.LENGTH_LONG).show()
                 true
             } else {
-                Toast.makeText(requireActivity(), INVALID_EMAIL_TOAST, Toast.LENGTH_LONG).show()
+                val toast = Toast.makeText(requireActivity(), INVALID_EMAIL_TOAST, Toast.LENGTH_LONG)
+                toast.show()
                 false
             }
         }
@@ -93,7 +170,7 @@ class FinishFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = FinishFragment()
+        fun newInstance(userText: String?, userImageUri: Uri) = FinishFragment(userText, userImageUri)
         private const val VALID_EMAIL_TOAST = "המייל ישלח בזמן אקראי בעתיד הקרוב"
         private const val INVALID_EMAIL_TOAST = "כתובת מייל לא תקינה"
     }

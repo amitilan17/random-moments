@@ -38,6 +38,7 @@ import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -213,7 +214,8 @@ class WriteFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun onImageTaken(imageUri: Uri) {
 //        deleteFile(imageUri)
-        navigateToFinishFragment()
+//        sendToEmailServer(imageUri)
+        navigateToFinishFragment(imageUri)
 //        sendToPrintServer(imageUri)
     }
 
@@ -226,6 +228,48 @@ class WriteFragment : Fragment() {
         outStream.flush()
         outStream.close()
         return file
+    }
+
+    private fun sendToEmailServer(imageUri: Uri) {
+        val image = imageUri.getFile() ?: return
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .build()
+
+        val userText = "היי זה טקסט"
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("text", userTypedText ?: "")
+            .addFormDataPart(
+                "image", "image.jpg",
+                RequestBody.create("image/png".toMediaTypeOrNull(), image)
+            )
+            .addFormDataPart("email", "amit.ilan17@gmail.com")
+            .build()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val result = withContext(Dispatchers.IO) {
+                async {
+                    try {
+                        val request = Request.Builder()
+                            .url("http://10.0.0.2:8000/data")
+//                            .url("http://192.168.231.180:8000/data")
+                            .post(requestBody)
+                            .build()
+
+                        val response = client.newCall(request).execute()
+                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                        response.body?.string()
+                    } catch (e: Exception) {
+                        println("email server error: $e")
+                    }
+                    deleteFiles(imageUri)
+                }
+            }
+            println(result.await())
+        }
     }
 
     private fun sendToPrintServer(imageUri: Uri) {
@@ -268,8 +312,8 @@ class WriteFragment : Fragment() {
         }
     }
 
-    private fun navigateToFinishFragment() {
-        val finishFragment = FinishFragment()
+    private fun navigateToFinishFragment(imageTakenUri: Uri) {
+        val finishFragment = FinishFragment(userTypedText, imageTakenUri)
 
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()

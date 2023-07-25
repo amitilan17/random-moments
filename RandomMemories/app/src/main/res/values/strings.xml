@@ -58,7 +58,7 @@
     <!--    home frag-->
     <string name="start_diary">התחל יומן</string>
     <string name="home_fragment_no_diary">כרגע אין יומן פעיל שצובר רגעים.</string>
-    <string name="home_fragment_no_moment">כרגע אין רגע כתיבה פעיל.\nרגעי הכתיבה יבחרו עבורך אקראית,\nותשלח על כך נוטיפיקציה.</string>
+    <string name="home_fragment_no_moment">אין רגע כתיבה פעיל כעת.\nנוטיפקציה תשלח ברגע אקראי שייבחר עבורך.</string>
 
     <!-- finish frag -->
     <string name="finish_text_1">הרגע שלך נשמר</string>
