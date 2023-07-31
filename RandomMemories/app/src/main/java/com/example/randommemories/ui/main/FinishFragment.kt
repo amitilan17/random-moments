@@ -11,9 +11,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -71,7 +69,7 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.send_button).setOnClickListener {
-            if (validateEmail(emailEditText.text)){
+            if (validateEmail(emailEditText.text)) {
                 sendToEmailServer(emailEditText.text.toString())
                 navigateToHomeFragment() // todo switch with dismiss for smoother animation?
                 dialog.dismiss()
@@ -107,7 +105,8 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
                     try {
                         val request = Request.Builder()
 //                            .url("http://10.0.0.2:8000/data")
-                            .url("http://192.168.231.180:8000/data")
+                            .url("https://serene-springs-36453.herokuapp.com/data")
+//                            .url("http://192.168.217.180:8000/data")
                             .post(requestBody)
                             .build()
 
