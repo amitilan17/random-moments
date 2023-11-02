@@ -8,14 +8,11 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import com.chaquo.python.Python
-import com.chaquo.python.android.AndroidPlatform
 import com.example.randommemories.helpers.LocaleHelper
-import com.example.randommemories.ui.main.HomeFragment
+import com.example.randommemories.mainFlow.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,9 +22,9 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         supportActionBar?.hide()
         actionBar?.hide()
-
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -38,10 +35,6 @@ class MainActivity : AppCompatActivity() {
         window.navigationBarColor = Color.TRANSPARENT
         window.isStatusBarContrastEnforced = false
         window.isNavigationBarContrastEnforced = false
-
-        if (!Python.isStarted()) {
-            Python.start(AndroidPlatform(this))
-        }
 
         LocaleHelper.onCreate(this, "he")
         setContentView(R.layout.activity_main)

@@ -1,9 +1,8 @@
-package com.example.randommemories.ui.main
+package com.example.randommemories.mainFlow
 
 
 import TakePictureWithUriReturnContract
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.Context
 import android.graphics.*
 import android.net.Uri
@@ -36,16 +35,15 @@ import com.example.randommemories.databinding.FragmentWriteBinding
 import com.example.randommemories.helpers.LocaleHelper
 import kotlinx.coroutines.*
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.*
-import java.lang.Exception
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class WriteFragment : Fragment() {
+    private lateinit var binding: FragmentWriteBinding
+    private val vm: WriteViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private var userTypedText: String? = null
-
     private var editText: EditText? = null
     private var counterTextView: TextView? = null
     private val textWatcher: TextWatcher = object : TextWatcher {
@@ -75,49 +73,13 @@ class WriteFragment : Fragment() {
             }
         }
 
-    private lateinit var binding: FragmentWriteBinding
-    private val vm: WriteViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by activityViewModels()
-
-
-    // todo move
-//    private val py = Python.getInstance()
-//    private val module = py.getModule("manipulate_image")
 
     override fun onResume() {
         super.onResume()
-
         LocaleHelper.onCreate(requireContext(), "he")
-
         activity?.findViewById<Button>(R.id.menu_button)?.visibility = View.INVISIBLE
 
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//
-//        val logo = requireActivity().findViewById<TextView>(R.id.logo)
-//        val restartButton = requireActivity().findViewById<View>(R.id.restart_button)
-//        logoTopPaddingOnActivity = logo.paddingTop
-//        restartTopPaddingOnActivity = restartButton.paddingTop
-//        restartLeftPaddingOnActivity = restartButton.paddingLeft
-//        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
-//
-//        editText?.requestFocus()
-//        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-//        logo.setPadding(0, 24, 0, 0)
-//        restartButton.setPadding(40, -14, 0, 0)
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
-//        requireActivity().findViewById<TextView>(R.id.logo)
-//            .setPadding(0, logoTopPaddingOnActivity, 0, 0)
-//        requireActivity().findViewById<View>(R.id.restart_button)
-//            .setPadding(restartLeftPaddingOnActivity, restartTopPaddingOnActivity, 0, 0)
-//    }
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.R)
@@ -190,15 +152,14 @@ class WriteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun takeImage() {
-        lifecycleScope.launchWhenStarted {
-            getTmpFileUri().let { uri -> takeImageResult.launch(uri) }
+        lifecycleScope.launch {
+            getTakenImageDestUri().let { destUri -> takeImageResult.launch(destUri) }
         }
     }
 
-
-    private fun getTmpFileUri(): Uri {
-        val tmpFile =
-            File.createTempFile("tmp_image_file", ".png", requireContext().cacheDir).apply {
+    private fun getTakenImageDestUri(): Uri {
+        val tempFile =
+            File.createTempFile("temp_image_file", ".png", requireContext().cacheDir).apply {
                 createNewFile()
                 deleteOnExit()
             }
@@ -206,126 +167,26 @@ class WriteFragment : Fragment() {
         return FileProvider.getUriForFile(
             requireContext(),
             "${BuildConfig.APPLICATION_ID}.provider",
-            tmpFile
+            tempFile
         )
     }
 
-
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun onImageTaken(imageUri: Uri) {
-//        deleteFile(imageUri)
-//        sendToEmailServer(imageUri)
-        navigateToFinishFragment(imageUri)
-//        sendToPrintServer(imageUri)
+        navigateToMomentSavedFragment(imageUri)
     }
 
-    private fun Uri.getFile(): File? {
-        val inputStream = requireContext().contentResolver.openInputStream(this)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-        val file = this.lastPathSegment?.let { File(requireContext().cacheDir, it) }
-        val outStream = FileOutputStream(file)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream)
-        outStream.flush()
-        outStream.close()
-        return file
-    }
-
-    private fun sendToEmailServer(imageUri: Uri) {
-        val image = imageUri.getFile() ?: return
-        val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .build()
-
-        val userText = "היי זה טקסט"
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart("text", userTypedText ?: "")
-            .addFormDataPart(
-                "image", "image.jpg",
-                RequestBody.create("image/png".toMediaTypeOrNull(), image)
-            )
-            .addFormDataPart("email", "amit.ilan17@gmail.com")
-            .build()
-
-        CoroutineScope(Dispatchers.Main).launch {
-            val result = withContext(Dispatchers.IO) {
-                async {
-                    try {
-                        val request = Request.Builder()
-                            .url("http://10.0.0.2:8000/data")
-//                            .url("http://192.168.231.180:8000/data")
-                            .post(requestBody)
-                            .build()
-
-                        val response = client.newCall(request).execute()
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                        response.body?.string()
-                    } catch (e: Exception) {
-                        println("email server error: $e")
-                    }
-                    deleteFiles(imageUri)
-                }
-            }
-            println(result.await())
-        }
-    }
-
-    private fun sendToPrintServer(imageUri: Uri) {
-        val image = imageUri.getFile() ?: return
-        val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .build()
-
-        val requestBody = MultipartBody.Builder()
-            .setType(MultipartBody.FORM)
-            .addFormDataPart("text", userTypedText ?: "")
-            .addFormDataPart(
-                "image", "image.jpg",
-                RequestBody.create("image/png".toMediaTypeOrNull(), image)
-            )
-            .build()
-
-        CoroutineScope(Dispatchers.Main).launch {
-            val result = withContext(Dispatchers.IO) {
-                async {
-                    try {
-                        val request = Request.Builder()
-//                            .url("http://10.0.0.2:8000/data")
-                            .url("http://192.168.231.180:8000/data")
-                            .post(requestBody)
-                            .build()
-
-                        val response = client.newCall(request).execute()
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                        response.body?.string()
-                    } catch (e: java.lang.Exception) {
-                        println("print server error: $e")
-                    }
-                    deleteFiles(imageUri)
-                }
-            }
-            println(result.await())
-        }
-    }
-
-    private fun navigateToFinishFragment(imageTakenUri: Uri) {
-        val finishFragment = FinishFragment(userTypedText, imageTakenUri)
-
+    private fun navigateToMomentSavedFragment(imageTakenUri: Uri) {
+        val momentSavedFragment = MomentSavedFragment(userTypedText, imageTakenUri)
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, finishFragment)
+        transaction.replace(R.id.fragmentContainer, momentSavedFragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
 
-
     private fun navigateToHomeFragment() {
         val homeFragment = HomeFragment.newInstance(true)
-
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, homeFragment)
@@ -335,10 +196,8 @@ class WriteFragment : Fragment() {
 
     private fun showSnoozeDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.snooze_dialog, null)
-        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
-            .setView(dialogView)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
 
-        val dialog = builder.create()
         dialogView.findViewById<Button>(R.id.reject_snooze_button).setOnClickListener {
             dialog.dismiss()
         }
@@ -352,12 +211,8 @@ class WriteFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun showMoveToCameraDialog() {
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.move_to_camera_dialog, null)
-        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
-            .setView(dialogView)
-
-        val dialog = builder.create()
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.move_to_camera_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
 
         dialogView.findViewById<Button>(R.id.back_move_to_camera_button).setOnClickListener {
             dialog.dismiss()
@@ -369,11 +224,6 @@ class WriteFragment : Fragment() {
         }
 
         dialog.show()
-    }
-
-    private fun deleteFiles(uri: Uri) {
-        val contentResolver: ContentResolver = requireActivity().contentResolver
-        contentResolver.delete(uri, null, null)
     }
 
     companion object {

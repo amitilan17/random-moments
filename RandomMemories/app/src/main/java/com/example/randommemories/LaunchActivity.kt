@@ -16,6 +16,7 @@ class LaunchActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_launch)
         supportActionBar?.hide()
         actionBar?.hide()

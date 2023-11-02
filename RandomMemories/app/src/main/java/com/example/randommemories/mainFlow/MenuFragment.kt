@@ -1,4 +1,4 @@
-package com.example.randommemories.ui.main
+package com.example.randommemories.mainFlow
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,6 @@ import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.activityViewModels
 import com.example.randommemories.MainActivity
 import com.example.randommemories.R
@@ -28,7 +27,7 @@ class MenuFragment : Fragment() {
         rootView.setOnTouchListener(
             OnSwipeTouchListener(
                 requireContext(),
-                onSwipeRight = { removeFragment() })
+                onSwipeRight = { closeFragment() })
         )
 
         return rootView
@@ -42,10 +41,10 @@ class MenuFragment : Fragment() {
 
 
         view.findViewById<Button>(R.id.backButton).setOnClickListener {
-            removeFragment()
+            closeFragment()
         }
 
-        view.findViewById<Button>(R.id.logout_button).setOnClickListener{
+        view.findViewById<Button>(R.id.logout_button).setOnClickListener {
             showLogoutDialog()
         }
 
@@ -62,16 +61,15 @@ class MenuFragment : Fragment() {
 
         val menuBackgroundLayout = view.findViewById<LinearLayout>(R.id.menu_dimmed_background)
         val fadeAnimation = AlphaAnimation(0.0f, 1.0f)
-        fadeAnimation.duration = 100 // Set the duration in milliseconds
+        fadeAnimation.duration = 100
         fadeAnimation.interpolator = AccelerateDecelerateInterpolator()
         menuBackgroundLayout.startAnimation(fadeAnimation)
         menuBackgroundLayout.setOnTouchListener(
             OnSwipeTouchListener(
                 requireContext(),
-                onSwipeRight = { removeFragment() },
-                onSimpleTouch = { removeFragment() })
+                onSwipeRight = { closeFragment() },
+                onSimpleTouch = { closeFragment() })
         )
-
 
         val checkboxFemale = view.findViewById<CheckBox>(R.id.checkboxFemale)
         val checkboxMale = view.findViewById<CheckBox>(R.id.checkboxMale)
@@ -79,35 +77,32 @@ class MenuFragment : Fragment() {
         checkboxMale.isChecked = !(activity as MainActivity).genderFemale
 
         checkboxFemale.setOnClickListener {
-            if (checkboxMale.isChecked){
+            if (checkboxMale.isChecked) {
                 checkboxFemale.isChecked = true
                 checkboxMale.isChecked = false
                 sharedViewModel.genderIsFemale = true
-            }
-            else { // must be that checkboxFemale is selected, override uncheck with ignore
+            } else { // must be that checkboxFemale is selected, override uncheck with ignore
                 checkboxFemale.isChecked = true
                 return@setOnClickListener
             }
         }
 
         checkboxMale.setOnClickListener {
-            if (checkboxFemale.isChecked){
+            if (checkboxFemale.isChecked) {
                 checkboxMale.isChecked = true
                 checkboxFemale.isChecked = false
-                sharedViewModel.genderIsFemale= false
-            }
-            else { // must be that checkboxMale is selected, override uncheck with ignore
+                sharedViewModel.genderIsFemale = false
+            } else { // must be that checkboxMale is selected, override uncheck with ignore
                 checkboxMale.isChecked = true
                 return@setOnClickListener
             }
         }
 
-
         val editButton = view.findViewById<Button>(R.id.edit_button)
         val contentTextView = view.findViewById<TextView>(R.id.contentTextView)
         val contentEditText = view.findViewById<EditText>(R.id.contentEditText)
 
-        // Set initial text for both TextView and EditText
+        // Set initial text for both TextView and EditText [Demo]
         val initialText = requireContext().getString(R.string.address)
         contentTextView.text = initialText
         contentEditText.setText(initialText)
@@ -134,8 +129,6 @@ class MenuFragment : Fragment() {
                 imm.showSoftInput(contentEditText, InputMethodManager.SHOW_IMPLICIT)
             }
         }
-
-
     }
 
     override fun onResume() {
@@ -152,10 +145,8 @@ class MenuFragment : Fragment() {
 
     private fun showLogoutDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.logout_dialog, null)
-        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
-            .setView(dialogView)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
 
-        val dialog = builder.create()
         dialogView.findViewById<Button>(R.id.reject_logout_button).setOnClickListener {
             dialog.dismiss()
         }
@@ -170,7 +161,6 @@ class MenuFragment : Fragment() {
 
     private fun navigateToHomeFragment() {
         val homeFragment = HomeFragment.newInstance(false)
-
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, homeFragment)
@@ -179,41 +169,6 @@ class MenuFragment : Fragment() {
     }
 
     private fun closeFragment() {
-        val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.popBackStack("home", POP_BACK_STACK_INCLUSIVE)
-    }
-
-    // works without fade
-//    private fun removeFragment() {
-//        val thisFrag = this
-//
-//        val menuContentLayout = activity?.findViewById<LinearLayout>(R.id.menu_content_layout)
-//
-//        val slideOutAnimation = TranslateAnimation(
-//            Animation.RELATIVE_TO_PARENT, 0.0f,
-//            Animation.RELATIVE_TO_PARENT, 1.0f,
-//            Animation.RELATIVE_TO_PARENT, 0.0f,
-//            Animation.RELATIVE_TO_PARENT, 0.0f
-//        )
-//        slideOutAnimation.duration = 100
-//        slideOutAnimation.interpolator = DecelerateInterpolator()
-//        menuContentLayout?.startAnimation(slideOutAnimation)
-//
-//        slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
-//            override fun onAnimationStart(animation: Animation?) {}
-//
-//            override fun onAnimationEnd(animation: Animation?) {
-//                val fragmentManager = requireActivity().supportFragmentManager
-//                fragmentManager.beginTransaction()
-//                    .remove(thisFrag)
-//                    .commit()
-//            }
-//
-//            override fun onAnimationRepeat(animation: Animation?) {}
-//        })
-//    }
-
-    private fun removeFragment() {
         val thisFrag = this
 
         val menuContentLayout = activity?.findViewById<LinearLayout>(R.id.menu_content_layout)
@@ -255,5 +210,4 @@ class MenuFragment : Fragment() {
         })
         menuDimmedBackground?.startAnimation(fadeOutAnimation)
     }
-
 }

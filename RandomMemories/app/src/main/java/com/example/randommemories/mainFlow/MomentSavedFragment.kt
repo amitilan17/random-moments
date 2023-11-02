@@ -1,4 +1,4 @@
-package com.example.randommemories.ui.main
+package com.example.randommemories.mainFlow
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
@@ -24,68 +24,57 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FinishFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FinishFragment(private val userText: String?, private val userImageUri: Uri) : Fragment() {
+class MomentSavedFragment(private val userText: String?, private val userImageUri: Uri) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_finish, container, false)
+        return inflater.inflate(R.layout.fragment_moment_saved, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){}
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // block back button
+        }
 
-        val back = view.findViewById<Button>(R.id.finish_exit_button)
-        back.setOnClickListener {
-//            requireActivity().finish() todo return if no demo restart button
-//            navigateToHomeFragment()
+        val backButton = view.findViewById<Button>(R.id.finish_exit_button)
+        backButton.setOnClickListener {
             showSendToEmailDialog()
         }
     }
 
     private fun showSendToEmailDialog() {
-        val dialogView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.send_to_email_dialog, null)
-        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
-            .setView(dialogView)
-        val dialog = builder.create()
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.send_to_email_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
 
         val emailEditText = dialogView.findViewById<EditText>(R.id.email_editText)
 
         dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
-//            navigateToHomeFragment() // todo switch with dismiss for smoother animation?
             deleteFiles(userImageUri)
             dialog.dismiss()
-
             val intent = Intent(requireContext(), LaunchActivity::class.java)
             startActivity(intent)
         }
+
         dialogView.findViewById<Button>(R.id.send_button).setOnClickListener {
             if (validateEmail(emailEditText.text)) {
                 sendToEmailServer(emailEditText.text.toString())
-//                navigateToHomeFragment() // todo switch with dismiss for smoother animation?
                 dialog.dismiss()
                 val intent = Intent(requireContext(), LaunchActivity::class.java)
                 startActivity(intent)
             }
         }
+
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
-
     }
 
 
@@ -102,7 +91,7 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
             .addFormDataPart("text", userText ?: "")
             .addFormDataPart(
                 "image", "image.jpg",
-                RequestBody.create("image/png".toMediaTypeOrNull(), image)
+                image.asRequestBody("image/png".toMediaTypeOrNull())
             )
             .addFormDataPart("email", email)
             .build()
@@ -112,14 +101,13 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
                 async {
                     try {
                         val request = Request.Builder()
-//                            .url("http://10.0.0.2:8000/data")
-                            .url("https://serene-springs-36453.herokuapp.com/data")
-//                            .url("http://192.168.217.180:8000/data")
+                            .url(HEROKU_URL)
                             .post(requestBody)
                             .build()
-
                         val response = client.newCall(request).execute()
-                        if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                        if (!response.isSuccessful) {
+                            throw IOException("Client call failed with response: $response")
+                        }
                         response.body?.string()
                     } catch (e: Exception) {
                         println("email server error: $e")
@@ -142,12 +130,10 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
         return file
     }
 
-
     private fun deleteFiles(uri: Uri) {
         val contentResolver: ContentResolver = requireActivity().contentResolver
         contentResolver.delete(uri, null, null)
     }
-
 
     @SuppressLint("ResourceAsColor")
     private fun validateEmail(text1: Editable): Boolean {
@@ -166,19 +152,10 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
         }
     }
 
-    private fun navigateToHomeFragment() {
-        val homeFragment = HomeFragment.newInstance(activeDiary = true)
-
-        val fragmentManager = requireActivity().supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, homeFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-
     companion object {
-        fun newInstance(userText: String?, userImageUri: Uri) = FinishFragment(userText, userImageUri)
         private const val VALID_EMAIL_TOAST = "המייל ישלח בזמן אקראי בעתיד הקרוב"
         private const val INVALID_EMAIL_TOAST = "כתובת מייל לא תקינה"
+        private const val HEROKU_URL = "https://serene-springs-36453.herokuapp.com/data"
+        private const val LOCAL_IP_URL = "http://10.0.0.2:8000/data"
     }
 }

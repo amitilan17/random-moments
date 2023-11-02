@@ -67,17 +67,9 @@ class OnboardingActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onResume() {
         super.onResume()
-//
-//        supportActionBar?.hide()
-//        actionBar?.hide()
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-//        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
-
 
         supportActionBar?.hide()
         actionBar?.hide()
-
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -88,17 +80,6 @@ class OnboardingActivity : AppCompatActivity() {
         window.navigationBarColor = Color.TRANSPARENT
         window.isStatusBarContrastEnforced = false
         window.isNavigationBarContrastEnforced = false
-
-
-//        supportActionBar?.hide()
-//        WindowCompat.setDecorFitsSystemWindows(window, false)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.setDecorFitsSystemWindows(false)
-//            window.insetsController?.let { controller ->
-//                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-//                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-//            }
-//        }
 
         LocaleHelper.onCreate(this, "he")
         setContentView(R.layout.activity_onboarding)
@@ -211,12 +192,6 @@ class OnboardingActivity : AppCompatActivity() {
                     return@setOnInfoListener false
                 }
             }
-
-
-            if (holder.adapterPosition == 0) {
-//                animateText(holder.itemView)
-            }
-
         }
 
         override fun onViewDetachedFromWindow(holder: OnboardingViewHolder) {
@@ -225,25 +200,6 @@ class OnboardingActivity : AppCompatActivity() {
             activity.activeImage = null
         }
 
-
-        @RequiresApi(Build.VERSION_CODES.M)
-        private fun animateText(itemView: View) {
-            val text2 = itemView.findViewById<TextView>(R.id.text_2)
-            text2.setTextColor(context.getColor(R.color.light_gray))
-            text2.postDelayed({ text2.setTextColor(context.getColor(R.color.black)) }, 2000)
-
-            val text3 = itemView.findViewById<TextView>(R.id.text_3)
-            text3.setTextColor(context.getColor(R.color.light_gray))
-            text3.postDelayed({ text3.setTextColor(context.getColor(R.color.black)) }, 5000)
-
-            val text4 = itemView.findViewById<TextView>(R.id.text_4)
-            text4.setTextColor(context.getColor(R.color.light_gray))
-            text4.postDelayed({ text4.setTextColor(context.getColor(R.color.black)) }, 7000)
-
-            val text5 = itemView.findViewById<TextView>(R.id.text_5)
-            text5.setTextColor(context.getColor(R.color.light_gray))
-            text5.postDelayed({ text5.setTextColor(context.getColor(R.color.black)) }, 10000)
-        }
 
         override fun getItemCount(): Int {
             return screens.size

@@ -1,11 +1,13 @@
-package com.example.randommemories.helpers;
+package com.example.randommemories.helpers
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import kotlin.math.abs
 
 
 class OnSwipeTouchListener(
@@ -19,6 +21,7 @@ class OnSwipeTouchListener(
         gestureDetector = GestureDetector(ctx, GestureListener())
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         if (onSimpleTouch != null) {
             onSimpleTouch.invoke()
@@ -42,8 +45,8 @@ class OnSwipeTouchListener(
             try {
                 val diffY = e2.y - e1.y
                 val diffX = e2.x - e1.x
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > Companion.SWIPE_THRESHOLD && Math.abs(velocityX) > Companion.SWIPE_VELOCITY_THRESHOLD) {
+                if (abs(diffX) > abs(diffY)) {
+                    if (abs(diffX) > Companion.SWIPE_THRESHOLD && abs(velocityX) > Companion.SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                             onSwipeRight()
                         } else {
@@ -51,7 +54,8 @@ class OnSwipeTouchListener(
                         }
                         result = true
                     }
-                } else if (Math.abs(diffY) > Companion.SWIPE_THRESHOLD && Math.abs(velocityY) > Companion.SWIPE_VELOCITY_THRESHOLD) {
+                } else if
+                        (abs(diffY) > Companion.SWIPE_THRESHOLD && abs(velocityY) > Companion.SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeBottom()
                     } else {
@@ -69,11 +73,9 @@ class OnSwipeTouchListener(
     fun onSwipeRight() {
         onSwipeRight.invoke()
     }
-
     fun onSwipeLeft() {}
     fun onSwipeTop() {}
     fun onSwipeBottom() {}
-
 
     companion object {
         private const val SWIPE_THRESHOLD = 100

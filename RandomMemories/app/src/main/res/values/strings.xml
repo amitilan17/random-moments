@@ -23,7 +23,6 @@
     <string name="onboarding_bullet4">ד.</string>
     <string name="onboarding_bullet5">ה.</string>
 
-
     <!--    start dialog-->
     <string name="dialog_text1">הרגע הראשון שיתועד יהיה הרגע הנוכחי, בתור דוגמה.</string>
     <string name="dialog_text2">הרגעים הבאים יוגדרו עבורך באופן אקראי, ותשלח לך על כך נוטיפיקציה.</string>
@@ -38,7 +37,7 @@
     <string name="send_to_email_dialog_text">הרגע שתיעדת ישלח בזמן אקראי בעתיד הקרוב לכתובת המייל:</string>
     <string name="send_to_email_dialog_pos_button">שלח</string>
     <string name="send_to_email_dialog_neg_button">דלג</string>
-
+    <string name="email_hint">כתובת מייל</string>
 
     <!--    move to camera dialog-->
     <string name="move_to_camera_dialog_text">לחיצה על המשך תשמור את הטקסט ותוביל למצלמה, להוספת תמונה מהרגע.</string>
@@ -60,7 +59,7 @@
     <string name="home_fragment_no_diary">כרגע אין יומן פעיל שצובר רגעים.</string>
     <string name="home_fragment_no_moment">אין רגע כתיבה פעיל כעת.\nנוטיפקציה תשלח ברגע אקראי שייבחר עבורך.</string>
 
-    <!-- finish frag -->
+    <!--    moment saved frag -->
     <string name="finish_text_1">הרגע שלך נשמר</string>
     <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
     <string name="finish_button">שליחה</string>
@@ -73,11 +72,6 @@
     <string name="male">גבר</string>
     <string name="female">אישה</string>
 
-
-    <string name="error">error!!!!</string>
-    <string name="content_description">description</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="email_hint">כתובת מייל</string>
+    <string name="content_description">placeholder</string>
 
 </resources>

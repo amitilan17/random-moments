@@ -12,18 +12,9 @@ public class LocaleHelper {
 
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
 
-    public static void onCreate(Context context) {
-        String lang = getPersistedData(context, Locale.getDefault().getLanguage());
-        setLocale(context, lang);
-    }
-
     public static void onCreate(Context context, String defaultLanguage) {
         String lang = getPersistedData(context, defaultLanguage);
         setLocale(context, lang);
-    }
-
-    public static String getLanguage(Context context) {
-        return getPersistedData(context, Locale.getDefault().getLanguage());
     }
 
     public static void setLocale(Context context, String language) {

@@ -1,4 +1,4 @@
-package com.example.randommemories.ui.main
+package com.example.randommemories.mainFlow
 
 import android.annotation.SuppressLint
 import android.media.MediaPlayer
@@ -14,17 +14,14 @@ import androidx.fragment.app.Fragment
 import com.example.randommemories.R
 
 
-private const val ARG_IS_ACTIVE_DIARY = "param1"
-private const val KEY_IS_VIDEO_PLAYING = "is_playing_key"
-
 class HomeFragment : Fragment() {
-
     private var activeDiary: Boolean? = null
     private var playbackPosition = 0
     private var isVideoPlaying = false
     private var menuButton: Button? = null
     private var logo: TextView? = null
     private lateinit var video: VideoView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -58,7 +55,9 @@ class HomeFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // block back button
+        }
 
         logo = activity?.findViewById<TextView>(R.id.logo)?.apply { visibility = View.VISIBLE }
         menuButton =
@@ -86,7 +85,7 @@ class HomeFragment : Fragment() {
             text.setText(R.string.home_fragment_no_diary)
         }
 
-        video = view.findViewById<VideoView>(R.id.video)
+        video = view.findViewById(R.id.video)
         if (savedInstanceState == null) {
             video.setVideoURI(Uri.parse("android.resource://" + context?.packageName + "/" + R.raw.home_screen))
             video.start()
@@ -129,10 +128,7 @@ class HomeFragment : Fragment() {
 
     private fun showDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.start_dialog, null)
-        val builder = AlertDialog.Builder(requireContext(), R.style.squareDialog)
-            .setView(dialogView)
-
-        val dialog = builder.create()
+        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
         dialogView.findViewById<Button>(R.id.dialog_button).setOnClickListener {
             navigateToWriteFragment()
             dialog.dismiss()
@@ -160,6 +156,9 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
+        private const val ARG_IS_ACTIVE_DIARY = "param1"
+        private const val KEY_IS_VIDEO_PLAYING = "is_playing_key"
+
         @JvmStatic
         fun newInstance(activeDiary: Boolean) =
             HomeFragment().apply {

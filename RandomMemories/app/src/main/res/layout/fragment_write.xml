@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="com.example.randommemories.ui.main.WriteViewModel" />
+            type="com.example.randommemories.mainFlow.WriteViewModel" />
     </data>
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:paddingHorizontal="@dimen/write_frag_padding"
             android:paddingTop="30dp">
 
-            <com.example.randommemories.ui.main.LinedEditText
+            <com.example.randommemories.mainFlow.LinedEditText
                 android:id="@+id/edit_text"
                 style="@style/NoBottomLineTextViewStyle"
                 android:layout_width="match_parent"
