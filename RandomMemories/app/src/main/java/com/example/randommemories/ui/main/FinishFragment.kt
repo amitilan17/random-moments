@@ -2,6 +2,7 @@ package com.example.randommemories.ui.main
 
 import android.annotation.SuppressLint
 import android.content.ContentResolver
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -15,6 +16,7 @@ import android.widget.*
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.randommemories.LaunchActivity
 import com.example.randommemories.R
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -65,14 +67,20 @@ class FinishFragment(private val userText: String?, private val userImageUri: Ur
         val emailEditText = dialogView.findViewById<EditText>(R.id.email_editText)
 
         dialogView.findViewById<Button>(R.id.exit_button).setOnClickListener {
-            navigateToHomeFragment() // todo switch with dismiss for smoother animation?
+//            navigateToHomeFragment() // todo switch with dismiss for smoother animation?
+            deleteFiles(userImageUri)
             dialog.dismiss()
+
+            val intent = Intent(requireContext(), LaunchActivity::class.java)
+            startActivity(intent)
         }
         dialogView.findViewById<Button>(R.id.send_button).setOnClickListener {
             if (validateEmail(emailEditText.text)) {
                 sendToEmailServer(emailEditText.text.toString())
-                navigateToHomeFragment() // todo switch with dismiss for smoother animation?
+//                navigateToHomeFragment() // todo switch with dismiss for smoother animation?
                 dialog.dismiss()
+                val intent = Intent(requireContext(), LaunchActivity::class.java)
+                startActivity(intent)
             }
         }
         dialog.setCanceledOnTouchOutside(false)

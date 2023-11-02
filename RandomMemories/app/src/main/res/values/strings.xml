@@ -36,8 +36,8 @@
 
     <!--    send to email dialog-->
     <string name="send_to_email_dialog_text">הרגע שתיעדת ישלח בזמן אקראי בעתיד הקרוב לכתובת המייל:</string>
-    <string name="send_to_email_dialog_pos_button">שליחה</string>
-    <string name="send_to_email_dialog_neg_button">יציאה</string>
+    <string name="send_to_email_dialog_pos_button">שלח</string>
+    <string name="send_to_email_dialog_neg_button">דלג</string>
 
 
     <!--    move to camera dialog-->
@@ -63,7 +63,7 @@
     <!-- finish frag -->
     <string name="finish_text_1">הרגע שלך נשמר</string>
     <string name="finish_text_2">יהיה ניתן לצפות בו בתום התקופה,\nכשהיומן יגיע לידיך.\nלהתראות ברגע הבא.</string>
-    <string name="finish_button">סיום</string>
+    <string name="finish_button">שליחה</string>
 
     <!--    menu frag-->
     <string name="logout">התנתק</string>
