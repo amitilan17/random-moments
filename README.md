@@ -1,5 +1,4 @@
-
-Random Moments / רגעי חולין
+**Random Moments / רגעי חולין**
 
 This is an Android app designed for observing and documenting everyday moments, with the aim of compiling them into a printed diary. It was developed as part of my final project in Visual Communication BDes at Bezalel Academy. Additional product and design specifications, intentions, and examples can be found here [link].
 
