@@ -1,0 +1,13 @@
+flask
+pytz
+Pillow
+gunicorn
+APScheduler
+dropbox
+reportlab==3.6.12
+pdfminer.six
+python-bidi==0.4.2
+memory-profiler
+numpy
+opencv-python-headless
+openai

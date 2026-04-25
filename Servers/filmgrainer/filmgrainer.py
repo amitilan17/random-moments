@@ -3,9 +3,8 @@
 from PIL import Image, ImageFilter
 import os 
 
-import filmgrainer.graingamma as graingamma
-import filmgrainer.graingen as graingen
-
+from . import graingamma
+from . import graingen
 
 def _grainTypes(typ):
     # After rescaling to make different grain sizes, the standard deviation

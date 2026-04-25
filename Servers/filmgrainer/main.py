@@ -1,6 +1,6 @@
 
 import sys
-import filmgrainer.filmgrainer as filmgrainer
+from . import filmgrainer
 
 from filmgrainer import __version__
 github = "https://github.com/larspontoppidan/filmgrainer"

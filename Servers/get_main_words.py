@@ -1,10 +1,11 @@
 import openai
 import json
 import random
+from openai import OpenAI
 
 
 def extract_words_gpt4(user_text, num_of_words_to_extract):
-    openai.api_key = "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"
+    client = OpenAI(api_key=os.environ.get("OPEN_AI_KEY"))
 
     instruction_pre = "מה הן שלוש המילים הכי חשובות בטקסט הבא: \n"
     instruction_post = 'תענה בדיוק בשלוש מילים בודדות שקיימות בטקסט, בפורמט json באופן הבא: {"first": "word1", "second": "word2", "third": "word3"}'
@@ -17,13 +18,15 @@ def extract_words_gpt4(user_text, num_of_words_to_extract):
         instruction_post = 'תענה בדיוק במילה בודדת שקיימת בטקסט, בפורמט json באופן הבא: {"first": "word"}'
 
     message = [{"role": "user", "content": instruction_pre + user_text + instruction_post}]
-    response = openai.ChatCompletion.create(
-        model="gpt-4-0613",
-        messages=message,
-        temperature=0.2,
-        max_tokens=1000,
-        frequency_penalty=0.0
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "user", "content": message}
+        ],
     )
+    print(response, flush=True)
+    print(response["choices"][0]["message"].content, flush=True)
     return response["choices"][0]["message"].content
 
 

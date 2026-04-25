@@ -2,8 +2,7 @@ import os
 import numpy as np
 import cv2
 import random
-from filmgrainer import filmgrainer
-
+from Servers.filmgrainer import filmgrainer
 
 def apply_channel_mixer(image, blue_intensity):
     # Split the image into its individual color channels

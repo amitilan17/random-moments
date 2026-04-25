@@ -10,10 +10,11 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.pdfbase.ttfonts import TTFont
 from bidi.algorithm import get_display
 from reportlab.lib.units import cm, mm
+from datetime import date, datetime, timedelta
+import pytz
 
-from cleanedForGithub.email_server import get_israel_time_now
-from manipulate_image import manipulate_image
-from get_main_words import get_main_words_str
+from Servers.manipulate_image import manipulate_image
+from Servers.get_main_words import get_main_words_str
 from memory_profiler import profile
 
 EIGHTY_FONT_SIZE = 10
@@ -26,9 +27,16 @@ PARA_HORIZONTAL_MARGIN_MM = 12.5
 PARA_VERTICAL_MARGIN_MM = 31.75
 
 
+BASE_DIR = os.path.dirname(__file__)
+pdfmetrics.registerFont(
+    TTFont('Eighty', os.path.join(BASE_DIR, '80-kb-Soft.ttf'))
+)
+pdfmetrics.registerFont(
+    TTFont('Greta', os.path.join(BASE_DIR, 'greta.ttf'))
+)
+
 def get_eighty_font_style():
     style = getSampleStyleSheet()
-    pdfmetrics.registerFont(TTFont(EIGHTY_FONT_NAME, '80-kb-Soft.ttf'))
     eighty_style = ParagraphStyle(
         'EightyStyle',
         parent=style['Normal'],
@@ -43,7 +51,6 @@ def get_eighty_font_style():
 
 def get_greta_font_style():
     style = getSampleStyleSheet()
-    pdfmetrics.registerFont(TTFont('Greta', 'greta.ttf'))
     greta_style = ParagraphStyle(
         'GretaStyle',
         parent=style['Normal'],
@@ -54,6 +61,9 @@ def get_greta_font_style():
         spaceAfter=12,  # space after paragraph
     )
     return greta_style
+
+def get_israel_time_now():
+    return datetime.now(pytz.timezone('Israel'))
 
 
 class JustifiedParagraphDrawer(Flowable):
