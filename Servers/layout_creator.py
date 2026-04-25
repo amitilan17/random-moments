@@ -176,6 +176,8 @@ class DateLayoutDrawer(Flowable):
 
 @profile
 def create_pdf(image_file_path, pdf_file_path, text, thread_temp_dir):
+    print(f"a6[0]: {A6[0]}", flush=True)
+    print(f"a6[1]: {A6[1]}", flush=True)
     pg_size = (A6[0], A6[1] * 2)
     doc = SimpleDocTemplate(pdf_file_path, pagesize=pg_size, rightMargin=-6, leftMargin=-6, topMargin=-6,
                             bottomMargin=-6)
