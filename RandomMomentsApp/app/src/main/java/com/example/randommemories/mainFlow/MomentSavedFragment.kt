@@ -17,20 +17,29 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.randommemories.LaunchActivity
+import com.example.randommemories.MainActivity
 import com.example.randommemories.R
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class MomentSavedFragment(private val userText: String?, private val userImageUri: Uri) : Fragment() {
+class MomentSavedFragment : Fragment() {
+
+    private var userText: String? = null
+    private lateinit var userImageUri: Uri
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userText = arguments?.getString("user_text")
+        userImageUri = Uri.parse(arguments?.getString("user_image_uri"))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,13 +56,27 @@ class MomentSavedFragment(private val userText: String?, private val userImageUr
 
         val backButton = view.findViewById<Button>(R.id.finish_exit_button)
         backButton.setOnClickListener {
-            showSendToEmailDialog()
+            if ((activity as MainActivity).isDemo) {
+                showSendToEmailDialog()
+            } else {
+                sendToEmailServer("")
+                this.requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, HomeFragment.newInstance(activeDiary = true))
+                    .commit()
+            }
+        }
+
+        if (!(activity as MainActivity).isDemo) {
+            backButton.setText("סיום")
+            view.findViewById<TextView>(R.id.finish_text_2).setText("נתראה ברגע הבא")
         }
     }
 
     private fun showSendToEmailDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.send_to_email_dialog, null)
-        val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
+        val dialogView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.send_to_email_dialog, null)
+        val dialog =
+            AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
 
         val emailEditText = dialogView.findViewById<EditText>(R.id.email_editText)
 
@@ -79,6 +102,8 @@ class MomentSavedFragment(private val userText: String?, private val userImageUr
 
 
     private fun sendToEmailServer(email: String) {
+        val serverUrl =
+            if ((this.activity as MainActivity).isDemo) HEROKU_URL else RENDER_WEB_SERVICE_URL
         val image = userImageUri.getFile() ?: return
         val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -101,7 +126,7 @@ class MomentSavedFragment(private val userText: String?, private val userImageUr
                 async {
                     try {
                         val request = Request.Builder()
-                            .url(HEROKU_URL)
+                            .url(serverUrl)
                             .post(requestBody)
                             .build()
                         val response = client.newCall(request).execute()
@@ -153,8 +178,18 @@ class MomentSavedFragment(private val userText: String?, private val userImageUr
     }
 
     companion object {
+        fun newInstance(userText: String?, userImageUri: Uri): MomentSavedFragment {
+            val fragment = MomentSavedFragment()
+            val args = Bundle()
+            args.putString("user_text", userText)
+            args.putString("user_image_uri", userImageUri.toString())
+            fragment.arguments = args
+            return fragment
+        }
+
         private const val VALID_EMAIL_TOAST = "המייל ישלח בזמן אקראי בעתיד הקרוב"
         private const val INVALID_EMAIL_TOAST = "כתובת מייל לא תקינה"
+        private const val RENDER_WEB_SERVICE_URL = "https://random-moments-10.onrender.com/data"
         private const val HEROKU_URL = "https://serene-springs-36453.herokuapp.com/data"
         private const val LOCAL_IP_URL = "http://10.0.0.2:8000/data"
     }

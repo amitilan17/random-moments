@@ -139,7 +139,12 @@ class WriteFragment : Fragment() {
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
             imm!!.hideSoftInputFromWindow(requireView().windowToken, 0)
-            showMoveToCameraDialog()
+            if ((activity as MainActivity).isDemo) {
+                showMoveToCameraDialog()
+            }
+            else {
+                continueToCamera()
+            }
         }
 
         snoozeButton?.setOnClickListener {
@@ -177,7 +182,7 @@ class WriteFragment : Fragment() {
     }
 
     private fun navigateToMomentSavedFragment(imageTakenUri: Uri) {
-        val momentSavedFragment = MomentSavedFragment(userTypedText, imageTakenUri)
+        val momentSavedFragment = MomentSavedFragment.newInstance(userTypedText, imageTakenUri)
         val fragmentManager = requireActivity().supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentContainer, momentSavedFragment)
@@ -219,11 +224,16 @@ class WriteFragment : Fragment() {
         }
         dialogView.findViewById<Button>(R.id.accept_move_to_camera_button).setOnClickListener {
             dialog.dismiss()
-            userTypedText = editText?.text.toString()
-            takeImage()
+            continueToCamera()
         }
 
         dialog.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun continueToCamera(){
+        userTypedText = editText?.text.toString()
+        takeImage()
     }
 
     companion object {
