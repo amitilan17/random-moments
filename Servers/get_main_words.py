@@ -2,6 +2,7 @@ import openai
 import json
 import random
 from openai import OpenAI
+import os
 
 
 def extract_words_gpt4(user_text, num_of_words_to_extract):

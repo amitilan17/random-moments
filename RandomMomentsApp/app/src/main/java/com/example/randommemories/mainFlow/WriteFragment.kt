@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.randommemories.*
 import com.example.randommemories.databinding.FragmentWriteBinding
 import com.example.randommemories.helpers.LocaleHelper
+import com.example.randommemories.notifications.NotificationScheduler
 import kotlinx.coroutines.*
 import okhttp3.*
 import java.io.*
@@ -199,6 +200,7 @@ class WriteFragment : Fragment() {
         transaction.commit()
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun showSnoozeDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.snooze_dialog, null)
         val dialog = AlertDialog.Builder(requireContext(), R.style.squareDialog).setView(dialogView).create()
@@ -207,6 +209,7 @@ class WriteFragment : Fragment() {
             dialog.dismiss()
         }
         dialogView.findViewById<Button>(R.id.accept_snooze_button).setOnClickListener {
+            NotificationScheduler.scheduleSnooze(requireContext())
             navigateToHomeFragment()
             dialog.dismiss()
         }
