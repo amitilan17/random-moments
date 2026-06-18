@@ -25,6 +25,7 @@ object NotificationScheduler {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        // Random delay: between 2 and 4 days (in milliseconds)
         val minDelayMs = 2 * 24 * 60 * 60 * 1000L
         val maxDelayMs = 4 * 24 * 60 * 60 * 1000L
 

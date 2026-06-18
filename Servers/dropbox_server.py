@@ -45,8 +45,13 @@ def save_user_config(email_address, pdf_file_path):
     formatted_sending_date = sending_date.strftime(DATE_FORMAT)
     formatted_date = now.strftime("%d-%m-%Y")
 
-    dbx_pdf_name = f"/{PDFS_ANS_EMAILS_DIR}/{formatted_sending_date}/{moment_id}/everyday-moment-{formatted_date}.pdf"
-    dbx_email_name = f"/{PDFS_ANS_EMAILS_DIR}/{formatted_sending_date}/{moment_id}/metadata.txt"
+# this is the path was used in the exhibition
+#     dbx_pdf_name = f"/{PDFS_ANS_EMAILS_DIR}/{formatted_sending_date}/{moment_id}/everyday-moment-{formatted_date}.pdf"
+#     dbx_email_name = f"/{PDFS_ANS_EMAILS_DIR}/{formatted_sending_date}/{moment_id}/metadata.txt"
+
+# path for current personal use
+    dbx_pdf_name = f"/personal_use/everyday-moment-{formatted_date}-{moment_id}.pdf"
+    dbx_email_name = f"/personal_use/metadata-{moment_id}.txt"
 
     bin_metadata = email_address.encode('utf-8')
     dbx.files_upload(bin_metadata, dbx_email_name, mode=dropbox.files.WriteMode.overwrite)
@@ -72,9 +77,6 @@ def receive_data():
     image = request.files['image']
     email_address = request.form['email']
 
-    print(email_address, flush=True)
-    print(text_data, flush=True)
-
     new_uuid = uuid.uuid4()
     filename = secure_filename(image.filename)
     thread_temp_dir = os.path.join("/tmp/email_server_temp", str(new_uuid))
@@ -97,7 +99,6 @@ def receive_data():
 
 
 def create_and_upload_moment(text_data, image_path, email_address, thread_temp_dir):
-    print("here create_and_upload_moment", flush=True)
     pdf_file_path = os.path.join(thread_temp_dir, "printpdf.pdf")
     create_pdf(image_path, pdf_file_path, text_data, thread_temp_dir)
     save_user_config(email_address, pdf_file_path)
